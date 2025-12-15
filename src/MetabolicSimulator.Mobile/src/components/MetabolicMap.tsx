@@ -1,157 +1,212 @@
 import React, { useMemo } from 'react';
-import ReactFlow, { 
-  Node, 
-  Edge, 
-  Background, 
-  Handle, 
+import ReactFlow, {
+  Node,
+  Edge,
+  Handle,
   Position,
   MarkerType
 } from 'reactflow';
+import dagre from 'dagre';
 import 'reactflow/dist/style.css';
 
 interface MapProps {
-  pathway: any; // The active pathway data
+  pathway: any;
 }
 
-// Custom Node for Metabolites (Mobile Optimized)
-const MetaboliteNode = ({ data }: any) => (
-  <div style={{ 
-      padding: '5px', 
-      borderRadius: '50%', 
-      background: 'rgba(255, 255, 255, 0.95)', 
-      border: '2px solid #2ecc71', 
-      width: '60px', 
-      height: '60px',
-      display: 'flex', 
-      flexDirection: 'column',
-      alignItems: 'center', 
-      justifyContent: 'center',
-      textAlign: 'center',
-      fontSize: '8px',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-      overflow: 'hidden'
-  }}>
-    <Handle type="target" position={Position.Top} style={{ background: '#555', width: '4px', height: '4px' }} />
-    <div style={{fontWeight: 'bold', lineHeight: '1.1', marginBottom: '2px'}}>{data.label}</div>
-    <div style={{color: '#666', fontSize: '7px'}}>{data.conc?.toFixed(2)}</div>
-    <Handle type="source" position={Position.Bottom} style={{ background: '#555', width: '4px', height: '4px' }} />
-  </div>
-);
+// Enhanced Node Style with concentration-based sizing
+const MetaboliteNode = ({ data }: any) => {
+  const concentration = data.conc || 0;
+  const baseSize = 35;
+  const maxSize = 55;
+  // Size based on concentration (normalized)
+  const size = Math.min(maxSize, baseSize + (concentration * 8));
+
+  // Color based on concentration level
+  let nodeColor = '#3498db';
+  if (concentration > 1.0) nodeColor = '#2ecc71'; // High
+  else if (concentration > 0.1) nodeColor = '#3498db'; // Medium
+  else if (concentration > 0.01) nodeColor = '#f39c12'; // Low
+  else nodeColor = '#95a5a6'; // Very low
+
+  return (
+    <div style={{
+        width: '100%', height: '100%',
+        display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center',
+        textAlign: 'center'
+    }}>
+      <Handle type="target" position={Position.Top} style={{background: nodeColor, width: '6px', height: '6px', border: 'none'}} />
+      <Handle type="target" position={Position.Left} style={{background: nodeColor, width: '6px', height: '6px', border: 'none'}} />
+
+      <div style={{
+          width: `${size}px`,
+          height: `${size}px`,
+          borderRadius: '50%',
+          background: `linear-gradient(135deg, ${nodeColor}dd, ${nodeColor})`,
+          border: `2px solid ${nodeColor}`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: `0 2px 8px ${nodeColor}44`,
+          marginBottom: '4px'
+      }}>
+          <div style={{
+              fontSize: `${Math.max(7, size / 6)}px`,
+              fontWeight: 'bold',
+              color: '#fff',
+              textShadow: '0 1px 2px rgba(0,0,0,0.3)'
+          }}>
+              {data.label.substring(0, Math.floor(size / 8))}
+          </div>
+      </div>
+
+      <div style={{
+          fontSize: '9px',
+          color: '#333',
+          lineHeight: '1.2',
+          fontWeight: '600',
+          maxWidth: '70px',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis'
+      }}>
+          {data.label}
+      </div>
+      <div style={{fontSize: '8px', color: '#666', fontWeight: '500'}}>
+          {concentration.toFixed(3)} mM
+      </div>
+
+      <Handle type="source" position={Position.Bottom} style={{background: nodeColor, width: '6px', height: '6px', border: 'none'}} />
+      <Handle type="source" position={Position.Right} style={{background: nodeColor, width: '6px', height: '6px', border: 'none'}} />
+    </div>
+  );
+};
 
 const nodeTypes = { metabolite: MetaboliteNode };
 
 const MetabolicMap: React.FC<MapProps> = ({ pathway }) => {
   
   const { nodes, edges } = useMemo(() => {
-    const layoutNodes: Node[] = [];
-    const layoutEdges: Edge[] = [];
-    
-    // --- Layout Strategies ---
+    const pathwayId = pathway.Id || pathway.id || '';
 
-    const getLinearCoordinates = (index: number) => ({ x: 0, y: index * 100 });
-    
-    const getCircularCoordinates = (index: number, count: number) => {
-        const radius = 120;
-        // Start from top (3/2 PI) and go clockwise
-        const angle = (index / count) * 2 * Math.PI - (Math.PI / 2);
-        return { 
-            x: radius * Math.cos(angle), 
-            y: radius * Math.sin(angle) 
-        };
-    };
+    // Create dagre graph for automatic layout
+    const dagreGraph = new dagre.graphlib.Graph();
+    dagreGraph.setDefaultEdgeLabel(() => ({}));
 
-    const getMethylationCoordinates = (id: string) => {
-        // Biologically Accurate "Figure-8" Layout
-        
-        // Center Points (Shifted to positive space)
-        const folateCenter = { x: 100, y: 200 };
-        const metCenter = { x: 300, y: 200 };
-        const radius = 80;
+    // Configure layout based on pathway type
+    let rankdir = 'TB'; // Top to bottom (default)
+    let ranksep = 80;
+    let nodesep = 60;
 
-        const positions: Record<string, {x: number, y: number}> = {
-            // --- Methionine Cycle (Right) ---
-            'met':  { x: metCenter.x, y: metCenter.y - radius }, // Top
-            'sam':  { x: metCenter.x + radius, y: metCenter.y }, // Right
-            'sah':  { x: metCenter.x, y: metCenter.y + radius }, // Bottom
-            'hcy':  { x: 200, y: 200 }, // Center Intersection (The Hub)
+    if (pathwayId.includes('glycolysis')) {
+      rankdir = 'TB'; // Vertical waterfall
+      ranksep = 70;
+    } else if (pathwayId.includes('krebs')) {
+      rankdir = 'LR'; // Left to right works better for cycles
+      ranksep = 90;
+      nodesep = 90;
+    } else if (pathwayId.includes('methylation')) {
+      rankdir = 'TB';
+      ranksep = 80;
+    }
 
-            // --- Folate Cycle (Left) ---
-            'thf':          { x: folateCenter.x, y: folateCenter.y - radius }, // Top
-            'methylene_thf':{ x: folateCenter.x - radius, y: folateCenter.y }, // Left
-            'methyl_thf':   { x: folateCenter.x, y: folateCenter.y + radius }, // Bottom (Feeds Hcy)
+    dagreGraph.setGraph({ rankdir, ranksep, nodesep });
 
-            // --- Transsulfuration (Down from Hcy) ---
-            'cysta': { x: 200, y: 300 },
-            'cys':   { x: 200, y: 380 },
-
-            // --- Betaine (Alternative Input to Met) ---
-            'bet':   { x: 280, y: 120 },
-            'dmg':   { x: 340, y: 160 },
-
-            // --- Cofactors ---
-            'atp_cyto': { x: 380, y: 120 }
-        };
-        return positions[id] || { x: Math.random() * 200, y: Math.random() * 200 };
-    };
-
-    // Determine Strategy
-    const metaboliteCount = pathway.Metabolites.length;
-    const pathwayId = pathway.Id || pathway.id || ''; // Handle both casing
-    const isLinear = pathwayId.includes('glycolysis') || pathwayId.includes('fat');
-    const isMethylation = pathwayId.includes('methylation');
-    
-    // Create Nodes with Layout
-    pathway.Metabolites.forEach((m: any, index: number) => {
-        let pos;
-        if (isMethylation) {
-            pos = getMethylationCoordinates(m.Id);
-        } else if (isLinear) {
-            pos = getLinearCoordinates(index);
-        } else {
-            // Default to Circular (Krebs, Urea)
-            pos = getCircularCoordinates(index, metaboliteCount);
-        }
-
-        layoutNodes.push({
-            id: m.Id,
-            type: 'metabolite',
-            data: { label: m.Name, conc: m.InitialConcentration },
-            position: pos,
-        });
+    // Add nodes to dagre
+    pathway.Metabolites.forEach((m: any) => {
+      const conc = m.InitialConcentration || 0;
+      const size = Math.min(55, 35 + (conc * 8));
+      dagreGraph.setNode(m.Id, { width: size + 40, height: size + 50 });
     });
 
-    // Create Edges (Reactions)
+    // Add edges to dagre
+    const edgeList: any[] = [];
     pathway.Reactions.forEach((r: any) => {
-        if (r.Substrates?.[0] && r.Products?.[0]) {
-            layoutEdges.push({
-                id: r.Id,
-                source: r.Substrates[0].MetaboliteId,
-                target: r.Products[0].MetaboliteId,
-                label: r.Name.split(' ')[0], 
-                animated: true,
-                style: { stroke: '#555', strokeWidth: 1.5 },
-                labelStyle: { fill: '#555', fontWeight: 600, fontSize: 8 },
-                markerEnd: { type: MarkerType.ArrowClosed, width: 15, height: 15 },
+      if (r.Substrates && r.Products) {
+        r.Substrates.forEach((substrate: any) => {
+          r.Products.forEach((product: any) => {
+            dagreGraph.setEdge(substrate.MetaboliteId, product.MetaboliteId);
+            edgeList.push({
+              id: `${r.Id}_${substrate.MetaboliteId}_${product.MetaboliteId}`,
+              source: substrate.MetaboliteId,
+              target: product.MetaboliteId,
+              reactionName: r.Name
             });
-        }
+          });
+        });
+      }
+    });
+
+    // Run dagre layout algorithm
+    dagre.layout(dagreGraph);
+
+    // Build ReactFlow nodes with dagre positions
+    const layoutNodes: Node[] = pathway.Metabolites.map((m: any) => {
+      const nodeWithPosition = dagreGraph.node(m.Id);
+      return {
+        id: m.Id,
+        type: 'metabolite',
+        data: { label: m.Name, conc: m.InitialConcentration },
+        position: {
+          x: nodeWithPosition.x - nodeWithPosition.width / 2,
+          y: nodeWithPosition.y - nodeWithPosition.height / 2
+        },
+        draggable: false
+      };
+    });
+
+    // Build ReactFlow edges with better styling
+    const layoutEdges: Edge[] = edgeList.map((e: any) => {
+      // Calculate flux/importance (for now, use a default)
+      const strokeWidth = 2;
+      const color = '#3498db';
+
+      return {
+        id: e.id,
+        source: e.source,
+        target: e.target,
+        animated: true,
+        style: {
+          stroke: color,
+          strokeWidth: strokeWidth
+        },
+        markerEnd: {
+          type: MarkerType.ArrowClosed,
+          color: color,
+          width: 15,
+          height: 15
+        },
+        label: e.reactionName || '',
+        labelStyle: { fontSize: 9, fill: '#555', fontWeight: '500' },
+        labelBgStyle: { fill: '#fff', fillOpacity: 0.9, rx: 4, ry: 4 },
+        labelBgPadding: [4, 4] as [number, number],
+        labelBgBorderRadius: 4
+      };
     });
 
     return { nodes: layoutNodes, edges: layoutEdges };
   }, [pathway]);
 
   return (
-    <div style={{ height: '300px', border: '1px solid #eee', borderRadius: '12px', background: '#fafafa', overflow: 'hidden' }}>
-      <ReactFlow 
-        nodes={nodes} 
-        edges={edges} 
+    <div style={{ height: '500px', background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', borderRadius: '12px', border: '1px solid #e1e4e8', overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}>
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
         nodeTypes={nodeTypes}
         fitView
-        fitViewOptions={{ padding: 0.2 }}
+        fitViewOptions={{ padding: 0.2, minZoom: 0.4, maxZoom: 1.2 }}
         proOptions={{ hideAttribution: true }}
-        minZoom={0.5}
-        maxZoom={2}
+        nodesDraggable={false}
+        nodesConnectable={false}
+        elementsSelectable={true}
+        zoomOnScroll={true}
+        panOnScroll={true}
+        zoomOnPinch={true}
+        panOnDrag={true}
+        minZoom={0.2}
+        maxZoom={2.5}
       >
-        <Background color="#ddd" gap={20} size={1} />
+        {/* Clean Background - No Grid */}
       </ReactFlow>
     </div>
   );

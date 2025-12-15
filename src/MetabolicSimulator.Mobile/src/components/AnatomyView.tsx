@@ -45,23 +45,60 @@ const AnatomyView: React.FC<AnatomyProps> = ({ atp, inflammation, methylation, n
             </filter>
         </defs>
 
-        {/* Smoother Human Silhouette (Abstract) */}
-        <path d="M120,30 
-                 C135,30 145,45 145,65  
-                 C145,80 135,90 155,95 
-                 C185,100 190,110 185,160 
-                 C180,220 170,280 160,350 
-                 L160,420 
-                 L80,420 
-                 L80,350 
-                 C70,280 60,220 55,160 
-                 C50,110 55,100 85,95 
-                 C105,90 95,80 95,65 
-                 C95,45 105,30 120,30 Z" 
-              fill="url(#bodyGradient)" 
-              stroke={auraColor} 
-              strokeWidth="1.5"
-              filter="url(#auraGlow)" />
+        {/* Human Silhouette - Clean outline matching person.jpg */}
+        <g>
+          {/* Head */}
+          <circle cx="120" cy="32" r="15"
+                  fill="url(#bodyGradient)"
+                  stroke={auraColor}
+                  strokeWidth="2"
+                  filter="url(#auraGlow)" />
+
+          {/* Body continuous outline */}
+          <path d="
+            M110,45
+            L110,65
+            L85,72
+            L85,168
+            L90,172
+            L58,180
+            L56,185
+            L60,185
+            L90,177
+            L95,250
+            L100,350
+            L102,420
+            L110,420
+            L110,355
+            L112,280
+            L115,200
+            L118,280
+            L120,355
+            L122,280
+            L125,200
+            L128,280
+            L130,355
+            L130,420
+            L138,420
+            L140,350
+            L145,250
+            L150,177
+            L180,185
+            L184,185
+            L182,180
+            L150,172
+            L155,168
+            L155,72
+            L130,65
+            L130,45
+            Z
+          "
+          fill="url(#bodyGradient)"
+          stroke={auraColor}
+          strokeWidth="2"
+          strokeLinejoin="round"
+          filter="url(#auraGlow)" />
+        </g>
 
         {/* Brain Node */}
         <g className={`organ-group ${methylStatus}`} onClick={() => onOrganClick('Brain')}>

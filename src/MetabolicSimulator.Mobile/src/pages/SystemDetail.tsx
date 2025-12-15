@@ -8,7 +8,8 @@ import { checkRange } from '../engine/RangeChecker';
 
 export interface SystemDetailProps {
     organId: string;
-    simulationState: any; 
+    simulationState: any;
+    dailyRanges: Record<string, {min: number, max: number}>;
     onBack: () => void;
 }
 
@@ -21,7 +22,7 @@ const ORGAN_MAP: Record<string, string[]> = {
     'Gut': ['glycolysis']
 };
 
-const SystemDetail: React.FC<SystemDetailProps> = ({ organId, simulationState, onBack }) => {
+const SystemDetail: React.FC<SystemDetailProps> = ({ organId, simulationState, dailyRanges, onBack }) => {
   const pathwayIds = ORGAN_MAP[organId] || [];
   
   const rawPathways: any[] = pathwaysData as any;
@@ -71,23 +72,67 @@ const SystemDetail: React.FC<SystemDetailProps> = ({ organId, simulationState, o
                                 {pathway.Metabolites?.slice(0, 6).map((m: any) => {
                                     const val = simulationState[m.Id] || 0;
                                     const rangeInfo = checkRange(m.Id, val);
-                                    
+                                    const dayRange = dailyRanges[m.Id];
+
                                     return (
-                                        <IonRow key={m.Id} style={{marginBottom: '8px', borderBottom: '1px solid #f0f0f0', paddingBottom: '4px'}}>
-                                            <IonCol size="6" style={{display: 'flex', alignItems: 'center'}}>
-                                                <div style={{
-                                                    width: '8px', height: '8px', borderRadius: '50%', 
-                                                    background: rangeInfo.color, marginRight: '8px',
-                                                    boxShadow: `0 0 4px ${rangeInfo.color}`
-                                                }} />
-                                                <span style={{fontSize: '12px', fontWeight: '500'}}>{m.Name}</span>
-                                            </IonCol>
-                                            <IonCol size="6" style={{textAlign: 'right'}}>
-                                                <span style={{fontSize: '14px', fontWeight: 'bold', color: '#333'}}>{val.toFixed(3)}</span>
-                                                <span style={{fontSize: '10px', color: '#999', marginLeft: '4px'}}>mM</span>
-                                                <div style={{fontSize: '9px', color: rangeInfo.color}}>{rangeInfo.status}</div>
-                                            </IonCol>
-                                        </IonRow>
+                                        <div key={m.Id} style={{marginBottom: '12px', padding: '8px', background: '#f9f9f9', borderRadius: '8px'}}>
+                                            <IonRow style={{marginBottom: '4px'}}>
+                                                <IonCol size="6" style={{display: 'flex', alignItems: 'center'}}>
+                                                    <div style={{
+                                                        width: '8px', height: '8px', borderRadius: '50%',
+                                                        background: rangeInfo.color, marginRight: '8px',
+                                                        boxShadow: `0 0 4px ${rangeInfo.color}`
+                                                    }} />
+                                                    <span style={{fontSize: '12px', fontWeight: '500'}}>{m.Name}</span>
+                                                </IonCol>
+                                                <IonCol size="6" style={{textAlign: 'right'}}>
+                                                    <span style={{fontSize: '14px', fontWeight: 'bold', color: '#333'}}>{val.toFixed(3)}</span>
+                                                    <span style={{fontSize: '10px', color: '#999', marginLeft: '4px'}}>mM</span>
+                                                </IonCol>
+                                            </IonRow>
+
+                                            {/* Daily Range Visualization */}
+                                            {dayRange && dayRange.min !== dayRange.max && (
+                                                <div style={{marginTop: '6px'}}>
+                                                    <div style={{fontSize: '9px', color: '#7f8c8d', marginBottom: '3px'}}>
+                                                        Today: {dayRange.min.toFixed(3)} - {dayRange.max.toFixed(3)} mM
+                                                    </div>
+                                                    <div style={{
+                                                        position: 'relative',
+                                                        height: '6px',
+                                                        background: '#e0e0e0',
+                                                        borderRadius: '3px',
+                                                        overflow: 'hidden'
+                                                    }}>
+                                                        {/* Target range background */}
+                                                        {rangeInfo.min !== undefined && rangeInfo.max !== undefined && (
+                                                            <div style={{
+                                                                position: 'absolute',
+                                                                left: `${Math.max(0, Math.min(100, ((rangeInfo.min - dayRange.min) / (dayRange.max - dayRange.min)) * 100))}%`,
+                                                                width: `${Math.max(0, Math.min(100, ((rangeInfo.max - rangeInfo.min) / (dayRange.max - dayRange.min)) * 100))}%`,
+                                                                height: '100%',
+                                                                background: '#2ecc7144'
+                                                            }} />
+                                                        )}
+                                                        {/* Current value marker */}
+                                                        <div style={{
+                                                            position: 'absolute',
+                                                            left: `${Math.max(0, Math.min(100, ((val - dayRange.min) / (dayRange.max - dayRange.min)) * 100))}%`,
+                                                            top: 0,
+                                                            width: '2px',
+                                                            height: '100%',
+                                                            background: rangeInfo.color,
+                                                            boxShadow: `0 0 3px ${rangeInfo.color}`
+                                                        }} />
+                                                    </div>
+                                                    <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '2px'}}>
+                                                        <span style={{fontSize: '8px', color: '#999'}}>Min</span>
+                                                        <span style={{fontSize: '8px', color: rangeInfo.color, fontWeight: '600'}}>{rangeInfo.status}</span>
+                                                        <span style={{fontSize: '8px', color: '#999'}}>Max</span>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
                                     );
                                 })}
                             </IonGrid>

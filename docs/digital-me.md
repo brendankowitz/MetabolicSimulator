@@ -137,16 +137,111 @@ Beyond pills, the Digital Twin models physical therapies by mapping their physio
 
 ---
 
-## 5. Technical Requirements
+## 6. Metabolic Network Integration Map
 
-### 5.1 Frontend (Visualization)
+This diagram shows how all metabolic systems interconnect to achieve homeostasis:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                        METABOLIC NETWORK CONNECTIONS                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   GLYCOLYSIS ──glucose→ KREBS CYCLE ──acetyl-CoA→ FAT METABOLISM            │
+│       │                     │                           │                   │
+│       └──pyruvate───────────┘                           │                   │
+│                             │                           │                   │
+│   ┌─────────────────────────┴───────────────────────────┘                   │
+│   │                                                                         │
+│   ▼                                                                         │
+│  NADH/FADH2 ──ETC──→ ATP ◄────────┐                                         │
+│       │              │             │                                        │
+│       │              ▼             │                                        │
+│       │         ADP ──adenylate──→ AMP ──────→ AMPK ACTIVATION              │
+│       │                kinase                        │                      │
+│       │                                              │                      │
+│       ▼                                              ▼                      │
+│  NAD+ SALVAGE ←─────────────────────────────→ SIRT1 ACTIVATION              │
+│       │                                              │                      │
+│       └──────────→ METHYLATION ←──met──────────────┘                        │
+│                         │                                                   │
+│                         └──cys→ GLUTATHIONE ←────→ ROS/INFLAMMATION         │
+│                                                          │                  │
+│                                                          ▼                  │
+│                                                    NF-kB ↔ CORTISOL         │
+│                                                                             │
+│   PROTEIN ──glutamate→ UREA CYCLE ──fumarate→ KREBS                         │
+│   TURNOVER      │           │                                               │
+│       ▲         │           ▼                                               │
+│       │         └──ammonia──→ CO2 ──→ EXHALATION                            │
+│       │                       │                                             │
+│       │                       ▼                                             │
+│       └────────────────── UREA ──→ KIDNEY EXCRETION                         │
+│                                                                             │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                        mTOR/AMPK LONGEVITY AXIS                             │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   INSULIN ──→ Akt ──→ mTOR ◄──leucine                                       │
+│                 │       │                                                   │
+│                 │       ├──→ S6K ──→ PROTEIN SYNTHESIS                      │
+│                 │       │                                                   │
+│                 │       └──→ 4E-BP1 ──→ TRANSLATION                         │
+│                 │                                                           │
+│   AMP ──→ AMPK ─┼──────────────(inhibits)──→ mTOR                           │
+│            │    │                                                           │
+│            │    └──→ FOXO ──→ STRESS RESPONSE GENES                         │
+│            │              (antioxidant, DNA repair, autophagy)              │
+│            │                                                                │
+│            └────────→ AUTOPHAGY ←───(inhibited by mTOR)                     │
+│                            │                                                │
+│                            └──→ leucine recycling ──→ mTOR                  │
+│                                                                             │
+│   NAD+ ──→ SIRT1 ──→ FOXO/PGC1α activation ──→ MITOCHONDRIAL BIOGENESIS     │
+│                                                                             │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                           HOMEOSTASIS MECHANISMS                            │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   GLUCOSE < 4.0 mM ──→ Glycogenolysis (liver releases glucose)              │
+│   GLUCOSE > 6.5 mM ──→ Glycogen synthesis (insulin-dependent)               │
+│   ATP < 3.0 mM ─────→ Emergency creatine phosphate mobilization             │
+│   NAD+ LOW ─────────→ NAD+ salvage pathway upregulation                     │
+│   ROS HIGH ─────────→ Glutathione/SOD/Catalase clearance                    │
+│   AMMONIA HIGH ─────→ Urea cycle acceleration                               │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Key Regulatory Relationships
+
+| Fed State (High Insulin/Leucine) | Fasted State (High AMP/Low ATP) |
+|----------------------------------|----------------------------------|
+| mTOR **ON** | AMPK **ON** |
+| Protein synthesis **UP** | Autophagy **UP** |
+| Fat storage **UP** | Fat oxidation **UP** |
+| FOXO cytosolic (inactive) | FOXO nuclear (active) |
+| Growth mode | Repair mode |
+
+### Longevity Optimization Target
+The simulation aims to balance:
+- **Sufficient mTOR** for muscle maintenance and immune function
+- **Sufficient AMPK/SIRT1** for cellular repair and autophagy
+- **Optimal NAD+** levels for SIRT1 activity
+- **Low chronic inflammation** (NF-kB, ROS)
+- **Efficient methylation** (SAM/SAH ratio > 4)
+
+---
+
+## 7. Technical Requirements
+
+### 7.1 Frontend (Visualization)
 *   **Framework:** React.
 *   **3D/2D Graphics:** 
     *   *Three.js / React Three Fiber:* For the top-level Anatomical Mannequin.
     *   *React Flow / D3.js:* For the interactive Pathway ("Subway") Maps.
 *   **Charting:** Chart.js or Recharts for real-time telemetry.
 
-### 5.2 Backend (Simulation Engine)
+### 7.2 Backend (Simulation Engine)
 *   **Engine:** Existing C# .NET Core Engine (RK4 Solver).
 *   **API Layer:** Must expose a **WebSocket / SignalR** stream.
     *   *Current State:* The engine calculates `t+1` and pushes the state to the frontend immediately, rather than writing to CSV.
@@ -154,13 +249,13 @@ Beyond pills, the Digital Twin models physical therapies by mapping their physio
 
 ---
 
-## 6. Relevant Research & References
+## 8. Relevant Research & References
 *   **Systems Biology:** *Kitano, H. (2002). Systems biology: a brief overview. Science.* (Foundation for pathway interaction).
 *   **Metabolic Networks:** *Palsson, B. Ø. (2006). Systems biology: properties of reconstructed networks.*
 *   **Aging & NAD+:** *Sinclair, D. A. et al.* (Dynamics of NAD+ decline and CD38).
 *   **Personalized Medicine:** *Hood, L. & Flores, M. (2012). Systems medicine and the emergence of proactive P4 medicine.*
 
-## 8. Implementation Roadmap
+## 9. Implementation Roadmap
 1.  **Backend Core (Complete):** C# Simulation Engine (RK4 Solver) with JSON-based pathways.
 2.  **Personalization Layer (Complete):** Profile system loading Lab Results, Genetics, and Biometrics.
 3.  **Frontend Dashboard (Prototype):** React-based Charts & KPI display reading CSV output.

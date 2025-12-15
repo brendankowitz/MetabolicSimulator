@@ -1,421 +1,813 @@
 [
-  {
-    "Id": "cs",
-    "Name": "Citrate Synthase",
-    "EcNumber": "2.3.3.1",
-    "Vmax": 0.05,
-    "Km": 0.01,
-    "Cofactors": [ "Mg2+" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "aco",
-    "Name": "Aconitase",
-    "EcNumber": "4.2.1.3",
-    "Vmax": 0.1,
-    "Km": 0.05,
-    "Cofactors": [ "Fe-S cluster" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "idh",
-    "Name": "Isocitrate Dehydrogenase",
-    "EcNumber": "1.1.1.41",
-    "Vmax": 0.03,
-    "Km": 0.02,
-    "Cofactors": [ "NAD+", "Mn2+/Mg2+" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "akgdh",
-    "Name": "α-Ketoglutarate Dehydrogenase",
-    "EcNumber": "1.2.4.2",
-    "Vmax": 0.025,
-    "Km": 0.03,
-    "Cofactors": [ "TPP", "lipoate", "FAD", "NAD+", "CoA" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "scs",
-    "Name": "Succinyl-CoA Synthetase",
-    "EcNumber": "6.2.1.4",
-    "Vmax": 0.04,
-    "Km": 0.02,
-    "Cofactors": [ "Mg2+" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "sdh",
-    "Name": "Succinate Dehydrogenase",
-    "EcNumber": "1.3.5.1",
-    "Vmax": 0.035,
-    "Km": 0.04,
-    "Cofactors": [ "FAD", "Fe-S clusters" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "fum",
-    "Name": "Fumarase",
-    "EcNumber": "4.2.1.2",
-    "Vmax": 0.08,
-    "Km": 0.01,
-    "Cofactors": [],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "mdh",
-    "Name": "Malate Dehydrogenase",
-    "EcNumber": "1.1.1.37",
-    "Vmax": 0.06,
-    "Km": 0.03,
-    "Cofactors": [ "NAD+" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "mthfr",
-    "Name": "Methylenetetrahydrofolate Reductase",
-    "EcNumber": "1.5.1.20",
-    "Vmax": 0.015,
-    "Km": 0.01,
-    "Cofactors": [ "FAD", "NADPH" ],
-    "GeneticModifiers": [
-      {
-        "RsId": "rs1801133",
-        "GeneName": "MTHFR",
-        "RiskAllele": "T",
-        "Orientation": "Minus",
-        "HomozygousEffect": 0.30,
-        "HeterozygousEffect": 0.65,
-        "Description": "C677T: T/T shows ~70% reduced activity"
-      },
-      {
-        "RsId": "rs1801131",
-        "GeneName": "MTHFR",
-        "RiskAllele": "C",
-        "Orientation": "Minus",
-        "HomozygousEffect": 0.50,
-        "HeterozygousEffect": 0.75,
-        "Description": "A1298C: C/C shows ~50% reduced activity"
-      }
-    ]
-  },
-  {
-    "Id": "mtr",
-    "Name": "Methionine Synthase",
-    "EcNumber": "2.1.1.13",
-    "Vmax": 0.008,
-    "Km": 0.015,
-    "Cofactors": [ "Methylcobalamin" ],
-    "GeneticModifiers": [
-      {
-        "RsId": "rs1805087",
-        "GeneName": "MTR",
-        "RiskAllele": "G",
-        "Orientation": "Plus",
-        "HomozygousEffect": 1.2,
-        "HeterozygousEffect": 1.1,
-        "Description": "A2756G: G allele may increase activity"
-      }
-    ]
-  },
-  {
-    "Id": "mat",
-    "Name": "Methionine Adenosyltransferase",
-    "EcNumber": "2.5.1.6",
-    "Vmax": 0.012,
-    "Km": 0.01,
-    "Cofactors": [ "ATP", "Mg2+" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "sahh",
-    "Name": "S-Adenosylhomocysteine Hydrolase",
-    "EcNumber": "3.3.1.1",
-    "Vmax": 0.015,
-    "Km": 0.008,
-    "Cofactors": [ "NAD+" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "cbs",
-    "Name": "Cystathionine β-Synthase",
-    "EcNumber": "4.2.1.22",
-    "Vmax": 0.002,
-    "Km": 0.02,
-    "Cofactors": [ "PLP (B6)" ],
-    "GeneticModifiers": [
-      {
-        "RsId": "rs234706",
-        "GeneName": "CBS",
-        "RiskAllele": "T",
-        "Orientation": "Minus",
-        "HomozygousEffect": 0.8,
-        "HeterozygousEffect": 0.9,
-        "Description": "C699T"
-      }
-    ]
-  },
-  {
-    "Id": "cgl",
-    "Name": "Cystathionine γ-Lyase",
-    "EcNumber": "4.4.1.1",
-    "Vmax": 0.005,
-    "Km": 0.01,
-    "Cofactors": [ "PLP (B6)" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "bhmt",
-    "Name": "Betaine-Homocysteine Methyltransferase",
-    "EcNumber": "2.1.1.5",
-    "Vmax": 0.002,
-    "Km": 0.02,
-    "Cofactors": [ "Zn2+" ],
-    "GeneticModifiers": [
-      {
-        "RsId": "rs3733890",
-        "GeneName": "BHMT",
-        "RiskAllele": "A",
-        "Orientation": "Plus",
-        "HomozygousEffect": 0.7,
-        "HeterozygousEffect": 0.85,
-        "Description": "G716A"
-      }
-    ]
-  },
-  {
-    "Id": "comt",
-    "Name": "Catechol-O-Methyltransferase",
-    "EcNumber": "2.1.1.6",
-    "Vmax": 0.01,
-    "Km": 0.02,
-    "Cofactors": [ "Mg2+", "SAM" ],
-    "GeneticModifiers": [
-      {
-        "RsId": "rs4680",
-        "GeneName": "COMT",
-        "RiskAllele": "A",
-        "Orientation": "Plus",
-        "HomozygousEffect": 0.30,
-        "HeterozygousEffect": 0.65,
-        "Description": "Val158Met: Met/Met slow"
-      }
-    ]
-  },
-  {
-    "Id": "shmt",
-    "Name": "Serine Hydroxymethyltransferase",
-    "EcNumber": "2.1.2.1",
-    "Vmax": 0.01,
-    "Km": 0.015,
-    "Cofactors": [ "PLP (B6)", "THF" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "etc_complex1",
-    "Name": "NADH Dehydrogenase (Complex I)",
-    "EcNumber": "7.1.1.2",
-    "Vmax": 0.15,
-    "Km": 0.05,
-    "Cofactors": [ "FMN", "Fe-S" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "acetyl_source",
-    "Name": "Acetyl-CoA Input (PDH/Beta-Oxidation)",
-    "EcNumber": "Input",
-    "Vmax": 0.025,
-    "Km": 1.0,
-    "Cofactors": [],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "nampt",
-    "Name": "Nicotinamide Phosphoribosyltransferase",
-    "EcNumber": "2.4.2.12",
-    "Vmax": 0.01,
-    "Km": 0.005,
-    "Cofactors": [ "ATP" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "nmnat",
-    "Name": "Nicotinamide Mononucleotide Adenylyltransferase",
-    "EcNumber": "2.7.7.1",
-    "Vmax": 0.05,
-    "Km": 0.01,
-    "Cofactors": [ "ATP" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "cd38",
-    "Name": "CD38 (NAD+ Glycohydrolase)",
-    "EcNumber": "3.2.2.5",
-    "Vmax": 0.005,
-    "Km": 0.01,
-    "Cofactors": [],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "sirt1",
-    "Name": "SIRT1 (Deacetylase)",
-    "EcNumber": "3.5.1.98",
-    "Vmax": 0.008,
-    "Km": 0.02,
-    "Cofactors": [ "NAD+" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "hk",
-    "Name": "Hexokinase",
-    "EcNumber": "2.7.1.1",
-    "Vmax": 0.05,
-    "Km": 0.05,
-    "Cofactors": [ "Mg2+", "ATP" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "pfk1",
-    "Name": "Phosphofructokinase-1",
-    "EcNumber": "2.7.1.11",
-    "Vmax": 0.08,
-    "Km": 0.02,
-    "Cofactors": [ "Mg2+", "ATP" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "pk",
-    "Name": "Pyruvate Kinase",
-    "EcNumber": "2.7.1.40",
-    "Vmax": 0.12,
-    "Km": 0.05,
-    "Cofactors": [ "Mg2+", "K+" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "pdh",
-    "Name": "Pyruvate Dehydrogenase Complex",
-    "EcNumber": "1.2.4.1",
-    "Vmax": 0.05,
-    "Km": 0.03,
-    "Cofactors": [ "TPP", "FAD", "CoA", "NAD+", "Lipoate" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "glut4",
-    "Name": "Glucose Transporter type 4",
-    "EcNumber": "Transport",
-    "Vmax": 0.15,
-    "Km": 5.0,
-    "Cofactors": [],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "gpx",
-    "Name": "Glutathione Peroxidase",
-    "EcNumber": "1.11.1.9",
-    "Vmax": 0.05,
-    "Km": 0.01,
-    "Cofactors": [ "Selenium" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "gr",
-    "Name": "Glutathione Reductase",
-    "EcNumber": "1.8.1.7",
-    "Vmax": 0.04,
-    "Km": 0.01,
-    "Cofactors": [ "FAD", "NADPH" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "etc_leak",
-    "Name": "ETC Electron Leak (ROS Gen)",
-    "EcNumber": "Non-Enzymatic",
-    "Vmax": 0.005,
-    "Km": 1.0,
-    "Cofactors": [],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "acs",
-    "Name": "Acyl-CoA Synthetase",
-    "EcNumber": "6.2.1.3",
-    "Vmax": 0.05,
-    "Km": 0.02,
-    "Cofactors": [ "ATP", "Mg2+" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "cpt1",
-    "Name": "Carnitine Palmitoyltransferase I",
-    "EcNumber": "2.3.1.21",
-    "Vmax": 0.03,
-    "Km": 0.01,
-    "Cofactors": [ "Carnitine" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "beta_ox_complex",
-    "Name": "Beta-Oxidation Enzymes",
-    "EcNumber": "Complex",
-    "Vmax": 0.04,
-    "Km": 0.02,
-    "Cofactors": [ "FAD", "NAD+" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "lkb1",
-    "Name": "Liver Kinase B1 (AMPK Activator)",
-    "EcNumber": "2.7.11.1",
-    "Vmax": 0.05,
-    "Km": 0.01,
-    "Cofactors": [],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "rhe_b",
-    "Name": "Rheb (mTOR Activator)",
-    "EcNumber": "Signaling",
-    "Vmax": 0.05,
-    "Km": 0.01,
-    "Cofactors": [],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "ul_k1",
-    "Name": "ULK1 (Autophagy Initiator)",
-    "EcNumber": "2.7.11.1",
-    "Vmax": 0.05,
-    "Km": 0.01,
-    "Cofactors": [],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "cps1",
-    "Name": "Carbamoyl Phosphate Synthetase I",
-    "EcNumber": "6.3.4.16",
-    "Vmax": 0.03,
-    "Km": 0.02,
-    "Cofactors": [ "N-acetylglutamate" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "otc",
-    "Name": "Ornithine Transcarbamylase",
-    "EcNumber": "2.1.3.3",
-    "Vmax": 0.04,
-    "Km": 0.01,
-    "Cofactors": [ "Zn2+" ],
-    "GeneticModifiers": []
-  },
-  {
-    "Id": "ass",
-    "Name": "Argininosuccinate Synthetase",
-    "EcNumber": "6.3.4.5",
-    "Vmax": 0.03,
-    "Km": 0.01,
-    "Cofactors": [ "Mg2+" ],
-    "GeneticModifiers": []
-  }
+    {
+        "Id": "cs",
+        "Name": "Citrate Synthase",
+        "EcNumber": "2.3.3.1",
+        "Vmax": 0.1,
+        "Km": 0.01,
+        "Cofactors": [
+            "Mg2+"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "aco",
+        "Name": "Aconitase",
+        "EcNumber": "4.2.1.3",
+        "Vmax": 0.1,
+        "Km": 0.05,
+        "Cofactors": [
+            "Fe-S cluster"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "idh",
+        "Name": "Isocitrate Dehydrogenase",
+        "EcNumber": "1.1.1.41",
+        "Vmax": 0.08,
+        "Km": 0.02,
+        "Cofactors": [
+            "NAD+",
+            "Mn2+/Mg2+"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "akgdh",
+        "Name": "\u00ce\u00b1-Ketoglutarate Dehydrogenase",
+        "EcNumber": "1.2.4.2",
+        "Vmax": 0.07,
+        "Km": 0.03,
+        "Cofactors": [
+            "TPP",
+            "lipoate",
+            "FAD",
+            "NAD+",
+            "CoA"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "scs",
+        "Name": "Succinyl-CoA Synthetase",
+        "EcNumber": "6.2.1.4",
+        "Vmax": 0.04,
+        "Km": 0.02,
+        "Cofactors": [
+            "Mg2+"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "sdh",
+        "Name": "Succinate Dehydrogenase",
+        "EcNumber": "1.3.5.1",
+        "Vmax": 0.08,
+        "Km": 0.04,
+        "Cofactors": [
+            "FAD",
+            "Fe-S clusters"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "fum",
+        "Name": "Fumarase",
+        "EcNumber": "4.2.1.2",
+        "Vmax": 0.08,
+        "Km": 0.01,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "mdh",
+        "Name": "Malate Dehydrogenase",
+        "EcNumber": "1.1.1.37",
+        "Vmax": 0.08,
+        "Km": 0.03,
+        "Cofactors": [
+            "NAD+"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "mthfr",
+        "Name": "Methylenetetrahydrofolate Reductase",
+        "EcNumber": "1.5.1.20",
+        "Vmax": 0.015,
+        "Km": 0.01,
+        "Cofactors": [
+            "FAD",
+            "NADPH"
+        ],
+        "GeneticModifiers": [
+            {
+                "RsId": "rs1801133",
+                "GeneName": "MTHFR",
+                "RiskAllele": "T",
+                "Orientation": "Minus",
+                "HomozygousEffect": 0.3,
+                "HeterozygousEffect": 0.65,
+                "Description": "C677T: T/T shows ~70% reduced activity"
+            },
+            {
+                "RsId": "rs1801131",
+                "GeneName": "MTHFR",
+                "RiskAllele": "C",
+                "Orientation": "Minus",
+                "HomozygousEffect": 0.5,
+                "HeterozygousEffect": 0.75,
+                "Description": "A1298C: C/C shows ~50% reduced activity"
+            }
+        ]
+    },
+    {
+        "Id": "mtr",
+        "Name": "Methionine Synthase",
+        "EcNumber": "2.1.1.13",
+        "Vmax": 0.008,
+        "Km": 0.015,
+        "Cofactors": [
+            "Methylcobalamin"
+        ],
+        "GeneticModifiers": [
+            {
+                "RsId": "rs1805087",
+                "GeneName": "MTR",
+                "RiskAllele": "G",
+                "Orientation": "Plus",
+                "HomozygousEffect": 1.2,
+                "HeterozygousEffect": 1.1,
+                "Description": "A2756G: G allele may increase activity"
+            }
+        ]
+    },
+    {
+        "Id": "mat",
+        "Name": "Methionine Adenosyltransferase",
+        "EcNumber": "2.5.1.6",
+        "Vmax": 0.012,
+        "Km": 0.01,
+        "Cofactors": [
+            "ATP",
+            "Mg2+"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "sahh",
+        "Name": "S-Adenosylhomocysteine Hydrolase",
+        "EcNumber": "3.3.1.1",
+        "Vmax": 0.015,
+        "Km": 0.008,
+        "Cofactors": [
+            "NAD+"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "cbs",
+        "Name": "Cystathionine \u00ce\u00b2-Synthase",
+        "EcNumber": "4.2.1.22",
+        "Vmax": 0.002,
+        "Km": 0.02,
+        "Cofactors": [
+            "PLP (B6)"
+        ],
+        "GeneticModifiers": [
+            {
+                "RsId": "rs234706",
+                "GeneName": "CBS",
+                "RiskAllele": "T",
+                "Orientation": "Minus",
+                "HomozygousEffect": 0.8,
+                "HeterozygousEffect": 0.9,
+                "Description": "C699T"
+            }
+        ]
+    },
+    {
+        "Id": "cgl",
+        "Name": "Cystathionine \u00ce\u00b3-Lyase",
+        "EcNumber": "4.4.1.1",
+        "Vmax": 0.005,
+        "Km": 0.01,
+        "Cofactors": [
+            "PLP (B6)"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "bhmt",
+        "Name": "Betaine-Homocysteine Methyltransferase",
+        "EcNumber": "2.1.1.5",
+        "Vmax": 0.002,
+        "Km": 0.02,
+        "Cofactors": [
+            "Zn2+"
+        ],
+        "GeneticModifiers": [
+            {
+                "RsId": "rs3733890",
+                "GeneName": "BHMT",
+                "RiskAllele": "A",
+                "Orientation": "Plus",
+                "HomozygousEffect": 0.7,
+                "HeterozygousEffect": 0.85,
+                "Description": "G716A"
+            }
+        ]
+    },
+    {
+        "Id": "comt",
+        "Name": "Catechol-O-Methyltransferase",
+        "EcNumber": "2.1.1.6",
+        "Vmax": 0.01,
+        "Km": 0.02,
+        "Cofactors": [
+            "Mg2+",
+            "SAM"
+        ],
+        "GeneticModifiers": [
+            {
+                "RsId": "rs4680",
+                "GeneName": "COMT",
+                "RiskAllele": "A",
+                "Orientation": "Plus",
+                "HomozygousEffect": 0.3,
+                "HeterozygousEffect": 0.65,
+                "Description": "Val158Met: Met/Met slow"
+            }
+        ]
+    },
+    {
+        "Id": "shmt",
+        "Name": "Serine Hydroxymethyltransferase",
+        "EcNumber": "2.1.2.1",
+        "Vmax": 0.01,
+        "Km": 0.015,
+        "Cofactors": [
+            "PLP (B6)",
+            "THF"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "etc_complex1",
+        "Name": "NADH Dehydrogenase (Complex I)",
+        "EcNumber": "7.1.1.2",
+        "Vmax": 0.25,
+        "Km": 0.05,
+        "Cofactors": [
+            "FMN",
+            "Fe-S"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "acetyl_source",
+        "Name": "Acetyl-CoA Input (PDH/Beta-Oxidation)",
+        "EcNumber": "Input",
+        "Vmax": 0.025,
+        "Km": 1.0,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "nampt",
+        "Name": "Nicotinamide Phosphoribosyltransferase",
+        "EcNumber": "2.4.2.12",
+        "Vmax": 0.01,
+        "Km": 0.005,
+        "Cofactors": [
+            "ATP"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "nmnat",
+        "Name": "Nicotinamide Mononucleotide Adenylyltransferase",
+        "EcNumber": "2.7.7.1",
+        "Vmax": 0.05,
+        "Km": 0.01,
+        "Cofactors": [
+            "ATP"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "cd38",
+        "Name": "CD38 (NAD+ Glycohydrolase)",
+        "EcNumber": "3.2.2.5",
+        "Vmax": 0.005,
+        "Km": 0.01,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "sirt1",
+        "Name": "SIRT1 (Deacetylase)",
+        "EcNumber": "3.5.1.98",
+        "Vmax": 0.008,
+        "Km": 0.02,
+        "Cofactors": [
+            "NAD+"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "hk",
+        "Name": "Hexokinase",
+        "EcNumber": "2.7.1.1",
+        "Vmax": 0.05,
+        "Km": 0.05,
+        "Cofactors": [
+            "Mg2+",
+            "ATP"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "pfk1",
+        "Name": "Phosphofructokinase-1",
+        "EcNumber": "2.7.1.11",
+        "Vmax": 0.08,
+        "Km": 0.02,
+        "Cofactors": [
+            "Mg2+",
+            "ATP"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "pk",
+        "Name": "Pyruvate Kinase",
+        "EcNumber": "2.7.1.40",
+        "Vmax": 0.15,
+        "Km": 0.05,
+        "Cofactors": [
+            "Mg2+",
+            "K+"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "pdh",
+        "Name": "Pyruvate Dehydrogenase Complex",
+        "EcNumber": "1.2.4.1",
+        "Vmax": 0.05,
+        "Km": 0.03,
+        "Cofactors": [
+            "TPP",
+            "FAD",
+            "CoA",
+            "NAD+",
+            "Lipoate"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "glut4",
+        "Name": "Glucose Transporter type 4",
+        "EcNumber": "Transport",
+        "Vmax": 0.12,
+        "Km": 2.5,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "gpx",
+        "Name": "Glutathione Peroxidase",
+        "EcNumber": "1.11.1.9",
+        "Vmax": 0.05,
+        "Km": 0.01,
+        "Cofactors": [
+            "Selenium"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "gr",
+        "Name": "Glutathione Reductase",
+        "EcNumber": "1.8.1.7",
+        "Vmax": 0.04,
+        "Km": 0.01,
+        "Cofactors": [
+            "FAD",
+            "NADPH"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "etc_leak",
+        "Name": "ETC Electron Leak (ROS Gen)",
+        "EcNumber": "Non-Enzymatic",
+        "Vmax": 0.005,
+        "Km": 1.0,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "acs",
+        "Name": "Acyl-CoA Synthetase",
+        "EcNumber": "6.2.1.3",
+        "Vmax": 0.05,
+        "Km": 0.02,
+        "Cofactors": [
+            "ATP",
+            "Mg2+"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "cpt1",
+        "Name": "Carnitine Palmitoyltransferase I",
+        "EcNumber": "2.3.1.21",
+        "Vmax": 0.03,
+        "Km": 0.01,
+        "Cofactors": [
+            "Carnitine"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "beta_ox_complex",
+        "Name": "Beta-Oxidation Enzymes",
+        "EcNumber": "Complex",
+        "Vmax": 0.008,
+        "Km": 0.02,
+        "Cofactors": [
+            "FAD",
+            "NAD+"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "lkb1",
+        "Name": "Liver Kinase B1 (AMPK Activator)",
+        "EcNumber": "2.7.11.1",
+        "Vmax": 0.05,
+        "Km": 0.01,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "rhe_b",
+        "Name": "Rheb (mTOR Activator)",
+        "EcNumber": "Signaling",
+        "Vmax": 0.05,
+        "Km": 0.01,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "ul_k1",
+        "Name": "ULK1 (Autophagy Initiator)",
+        "EcNumber": "2.7.11.1",
+        "Vmax": 0.05,
+        "Km": 0.01,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "cps1",
+        "Name": "Carbamoyl Phosphate Synthetase I",
+        "EcNumber": "6.3.4.16",
+        "Vmax": 0.03,
+        "Km": 0.02,
+        "Cofactors": [
+            "N-acetylglutamate"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "otc",
+        "Name": "Ornithine Transcarbamylase",
+        "EcNumber": "2.1.3.3",
+        "Vmax": 0.04,
+        "Km": 0.01,
+        "Cofactors": [
+            "Zn2+"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "ass",
+        "Name": "Argininosuccinate Synthetase",
+        "EcNumber": "6.3.4.5",
+        "Vmax": 0.03,
+        "Km": 0.01,
+        "Cofactors": [
+            "Mg2+"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "basal_atpase",
+        "Name": "Basal ATPase (Na/K pumps, protein synthesis, etc)",
+        "EcNumber": "3.6.3.9",
+        "Vmax": 0.03,
+        "Km": 2.0,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "arginase",
+        "Name": "Arginase",
+        "EcNumber": "3.5.3.1",
+        "Vmax": 0.05,
+        "Km": 0.01,
+        "Cofactors": [
+            "Mn2+"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "asl",
+        "Name": "Argininosuccinate Lyase",
+        "EcNumber": "4.3.2.1",
+        "Vmax": 0.04,
+        "Km": 0.01,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "kidney_clearance",
+        "Name": "Renal Urea Clearance",
+        "EcNumber": "Transport",
+        "Vmax": 0.02,
+        "Km": 5.0,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "gldh",
+        "Name": "Glutamate Dehydrogenase",
+        "EcNumber": "1.4.1.3",
+        "Vmax": 0.015,
+        "Km": 0.05,
+        "Cofactors": [
+            "NAD+",
+            "NADP+"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "ast",
+        "Name": "Aspartate Aminotransferase",
+        "EcNumber": "2.6.1.1",
+        "Vmax": 0.03,
+        "Km": 0.02,
+        "Cofactors": [
+            "PLP (B6)"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "proteasome",
+        "Name": "Proteasome (Protein Turnover)",
+        "EcNumber": "3.4.25.1",
+        "Vmax": 0.005,
+        "Km": 1.0,
+        "Cofactors": [
+            "ATP"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "chdh",
+        "Name": "Choline Dehydrogenase",
+        "EcNumber": "1.1.99.1",
+        "Vmax": 0.01,
+        "Km": 0.1,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "dmgdh",
+        "Name": "Dimethylglycine Dehydrogenase",
+        "EcNumber": "1.5.8.4",
+        "Vmax": 0.02,
+        "Km": 0.05,
+        "Cofactors": [
+            "FAD"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "ndpk",
+        "Name": "Nucleoside Diphosphate Kinase",
+        "EcNumber": "2.7.4.6",
+        "Vmax": 0.1,
+        "Km": 0.3,
+        "Cofactors": [
+            "Mg2+"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "adk",
+        "Name": "Adenylate Kinase",
+        "EcNumber": "2.7.4.3",
+        "Vmax": 0.05,
+        "Km": 0.5,
+        "Cofactors": [
+            "Mg2+"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "ampd",
+        "Name": "AMP Deaminase",
+        "EcNumber": "3.5.4.6",
+        "Vmax": 0.03,
+        "Km": 0.05,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "prps",
+        "Name": "PRPP Synthetase",
+        "EcNumber": "2.7.6.1",
+        "Vmax": 0.01,
+        "Km": 1.0,
+        "Cofactors": [
+            "Mg2+",
+            "ATP"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "slc25a51",
+        "Name": "Mitochondrial NAD Transporter",
+        "EcNumber": "Transport",
+        "Vmax": 0.02,
+        "Km": 0.5,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "ikb",
+        "Name": "IkB Alpha (NF-kB Inhibitor)",
+        "EcNumber": "N/A",
+        "Vmax": 0.05,
+        "Km": 0.1,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "gcl",
+        "Name": "Glutamate-Cysteine Ligase",
+        "EcNumber": "6.3.2.2",
+        "Vmax": 0.03,
+        "Km": 0.1,
+        "Cofactors": [
+            "ATP",
+            "Mg2+"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "tsc",
+        "Name": "TSC Complex (mTOR Inhibitor)",
+        "EcNumber": "N/A",
+        "Vmax": 0.04,
+        "Km": 0.2,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "lat1",
+        "Name": "L-type Amino Acid Transporter 1",
+        "EcNumber": "Transport",
+        "Vmax": 0.01,
+        "Km": 0.1,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "bcat",
+        "Name": "Branched-Chain Aminotransferase",
+        "EcNumber": "2.6.1.42",
+        "Vmax": 0.02,
+        "Km": 0.1,
+        "Cofactors": [
+            "PLP (B6)"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "lung_exchange",
+        "Name": "Pulmonary Gas Exchange",
+        "EcNumber": "Transport",
+        "Vmax": 0.1,
+        "Km": 1.0,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "mtor_kinase",
+        "Name": "mTOR Kinase Activity",
+        "EcNumber": "2.7.11.1",
+        "Vmax": 0.05,
+        "Km": 0.2,
+        "Cofactors": [
+            "ATP"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "pp2a",
+        "Name": "Protein Phosphatase 2A",
+        "EcNumber": "3.1.3.16",
+        "Vmax": 0.04,
+        "Km": 0.15,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "foxo_transport",
+        "Name": "FOXO Nuclear Transport",
+        "EcNumber": "Transport",
+        "Vmax": 0.03,
+        "Km": 0.1,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "akt",
+        "Name": "Akt/PKB Kinase",
+        "EcNumber": "2.7.11.1",
+        "Vmax": 0.04,
+        "Km": 0.2,
+        "Cofactors": [
+            "PIP3"
+        ],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "lysosome",
+        "Name": "Lysosomal Degradation",
+        "EcNumber": "3.4.23.x",
+        "Vmax": 0.02,
+        "Km": 0.1,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "dbc1",
+        "Name": "DBC1 (SIRT1 Inhibitor)",
+        "EcNumber": "N/A",
+        "Vmax": 0.01,
+        "Km": 0.3,
+        "Cofactors": [],
+        "GeneticModifiers": []
+    },
+    {
+        "Id": "aldolase",
+        "Name": "Aldolase",
+        "EcNumber": "4.1.2.13",
+        "Vmax": 0.1,
+        "Km": 0.02,
+        "Cofactors": []
+    },
+    {
+        "Id": "gapdh",
+        "Name": "Glyceraldehyde-3-Phosphate Dehydrogenase",
+        "EcNumber": "1.2.1.12",
+        "Vmax": 0.15,
+        "Km": 0.02,
+        "Cofactors": [
+            "NAD+"
+        ]
+    },
+    {
+        "Id": "pgk",
+        "Name": "Phosphoglycerate Kinase",
+        "EcNumber": "2.7.2.3",
+        "Vmax": 0.2,
+        "Km": 0.02,
+        "Cofactors": [
+            "Mg2+"
+        ]
+    },
+    {
+        "Id": "enolase",
+        "Name": "Enolase",
+        "EcNumber": "4.2.1.11",
+        "Vmax": 0.1,
+        "Km": 0.03,
+        "Cofactors": [
+            "Mg2+"
+        ]
+    },
+    {
+        "Id": "malate_shuttle",
+        "Name": "Malate-Aspartate Shuttle",
+        "EcNumber": "Transport",
+        "Vmax": 0.08,
+        "Km": 0.05,
+        "Cofactors": []
+    }
 ]

@@ -1,9 +1,15 @@
 {
-  "WakeTime": "07:00",
-  "SleepTime": "23:00",
+  "WakeTime": "06:15",
+  "SleepTime": "23:30",
   "Events": [
     {
-      "Time": "08:00",
+      "Time": "07:00",
+      "Type": "Exercise",
+      "Description": "Gym Session",
+      "Payload": { "DurationMinutes": 60, "Intensity": "High", "AtpDemandMultiplier": 5.0 }
+    },
+    {
+      "Time": "08:15",
       "Type": "Meal",
       "Description": "Breakfast",
       "Payload": { "GlucoseLoad": 50.0, "ProteinLoad": 30.0, "FatLoad": 10.0 }
@@ -13,12 +19,6 @@
       "Type": "Meal",
       "Description": "Lunch",
       "Payload": { "GlucoseLoad": 40.0, "ProteinLoad": 40.0, "FatLoad": 20.0 }
-    },
-    {
-      "Time": "18:00",
-      "Type": "Exercise",
-      "Description": "Gym Session",
-      "Payload": { "DurationMinutes": 60, "Intensity": "High", "AtpDemandMultiplier": 5.0 }
     },
     {
       "Time": "19:30",
