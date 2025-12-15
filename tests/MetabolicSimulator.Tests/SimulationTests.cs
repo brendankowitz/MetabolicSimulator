@@ -134,6 +134,7 @@ public class SimulationEngineTests
             RsId: "rs1801133",
             GeneName: "MTHFR",
             RiskAllele: "T",
+            Orientation: Strand.Minus,
             HomozygousEffect: 0.30,
             HeterozygousEffect: 0.65,
             Description: "MTHFR C677T");

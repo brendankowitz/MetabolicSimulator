@@ -1,0 +1,97 @@
+[
+  {
+    "Id": "methylation_cycle",
+    "Name": "Methylation Cycle",
+    "Description": "Core methylation and folate pathways",
+    "Metabolites": [
+      { "Id": "met", "Name": "Methionine", "InitialConcentration": 0.03, "Compartment": "cytosol" },
+      { "Id": "sam", "Name": "SAM", "InitialConcentration": 0.08, "Compartment": "cytosol" },
+      { "Id": "sah", "Name": "SAH", "InitialConcentration": 0.02, "Compartment": "cytosol" },
+      { "Id": "hcy", "Name": "Homocysteine", "InitialConcentration": 0.015, "Compartment": "cytosol" },
+      { "Id": "cysta", "Name": "Cystathionine", "InitialConcentration": 0.005, "Compartment": "cytosol" },
+      { "Id": "cys", "Name": "Cysteine", "InitialConcentration": 0.2, "Compartment": "cytosol" },
+      { "Id": "thf", "Name": "THF", "InitialConcentration": 0.02, "Compartment": "cytosol" },
+      { "Id": "methylene_thf", "Name": "5,10-Methylene-THF", "InitialConcentration": 0.015, "Compartment": "cytosol" },
+      { "Id": "methyl_thf", "Name": "5-MTHF", "InitialConcentration": 0.02, "Compartment": "cytosol" },
+      { "Id": "bet", "Name": "Betaine", "InitialConcentration": 0.1, "Compartment": "cytosol" },
+      { "Id": "dmg", "Name": "Dimethylglycine", "InitialConcentration": 0.02, "Compartment": "cytosol" },
+      { "Id": "atp_methyl", "Name": "ATP", "InitialConcentration": 3.0, "Compartment": "cytosol" }
+    ],
+    "Reactions": [
+      {
+        "Id": "methyl_1",
+        "Name": "Methionine to SAM",
+        "EnzymeId": "mat",
+        "Substrates": [ { "MetaboliteId": "met", "Coefficient": 1 }, { "MetaboliteId": "atp_methyl", "Coefficient": 1 } ],
+        "Products": [ { "MetaboliteId": "sam", "Coefficient": 1 } ],
+        "Kinetics": "MichaelisMenten"
+      },
+      {
+        "Id": "methyl_2",
+        "Name": "SAM Methylation (COMT)",
+        "EnzymeId": "comt",
+        "Substrates": [ { "MetaboliteId": "sam", "Coefficient": 1 } ],
+        "Products": [ { "MetaboliteId": "sah", "Coefficient": 1 } ],
+        "Kinetics": "MichaelisMenten"
+      },
+      {
+        "Id": "methyl_3",
+        "Name": "SAH to Homocysteine",
+        "EnzymeId": "sahh",
+        "Substrates": [ { "MetaboliteId": "sah", "Coefficient": 1 } ],
+        "Products": [ { "MetaboliteId": "hcy", "Coefficient": 1 } ],
+        "Kinetics": "MichaelisMenten"
+      },
+      {
+        "Id": "methyl_4",
+        "Name": "Homocysteine Remethylation (MTR)",
+        "EnzymeId": "mtr",
+        "Substrates": [ { "MetaboliteId": "hcy", "Coefficient": 1 }, { "MetaboliteId": "methyl_thf", "Coefficient": 1 } ],
+        "Products": [ { "MetaboliteId": "met", "Coefficient": 1 }, { "MetaboliteId": "thf", "Coefficient": 1 } ],
+        "Kinetics": "MichaelisMenten"
+      },
+      {
+        "Id": "folate_1",
+        "Name": "THF to Methylene-THF",
+        "EnzymeId": "shmt",
+        "Substrates": [ { "MetaboliteId": "thf", "Coefficient": 1 } ],
+        "Products": [ { "MetaboliteId": "methylene_thf", "Coefficient": 1 } ],
+        "Kinetics": "MichaelisMenten"
+      },
+      {
+        "Id": "folate_2",
+        "Name": "MTHFR Reaction",
+        "EnzymeId": "mthfr",
+        "Substrates": [ { "MetaboliteId": "methylene_thf", "Coefficient": 1 } ],
+        "Products": [ { "MetaboliteId": "methyl_thf", "Coefficient": 1 } ],
+        "Kinetics": "MichaelisMenten",
+        "Inhibitors": [ "sam" ],
+        "Ki": 0.1
+      },
+      {
+        "Id": "betaine_1",
+        "Name": "BHMT Pathway",
+        "EnzymeId": "bhmt",
+        "Substrates": [ { "MetaboliteId": "hcy", "Coefficient": 1 }, { "MetaboliteId": "bet", "Coefficient": 1 } ],
+        "Products": [ { "MetaboliteId": "met", "Coefficient": 1 }, { "MetaboliteId": "dmg", "Coefficient": 1 } ],
+        "Kinetics": "MichaelisMenten"
+      },
+      {
+        "Id": "transsulf_1",
+        "Name": "CBS Reaction",
+        "EnzymeId": "cbs",
+        "Substrates": [ { "MetaboliteId": "hcy", "Coefficient": 1 } ],
+        "Products": [ { "MetaboliteId": "cysta", "Coefficient": 1 } ],
+        "Kinetics": "MichaelisMenten"
+      },
+      {
+        "Id": "transsulf_2",
+        "Name": "CGL Reaction",
+        "EnzymeId": "cgl",
+        "Substrates": [ { "MetaboliteId": "cysta", "Coefficient": 1 } ],
+        "Products": [ { "MetaboliteId": "cys", "Coefficient": 1 } ],
+        "Kinetics": "MichaelisMenten"
+      }
+    ]
+  }
+]

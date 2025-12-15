@@ -1,3 +1,5 @@
+using MetabolicSimulator.Domain.Enums;
+
 namespace MetabolicSimulator.Domain.Entities;
 
 /// <summary>
@@ -17,7 +19,7 @@ public class GeneticProfile
     /// Gets the genotype for a specific SNP.
     /// </summary>
     /// <param name="rsId">The reference SNP identifier.</param>
-    /// <returns>The genotype string, or null if not found.</returns>
+    /// <returns>The genotype string (e.g., "AG"), or null if not found.</returns>
     public string? GetGenotype(string rsId)
     {
         return _snpData.TryGetValue(rsId, out var snp) ? snp.Genotype : null;
@@ -34,11 +36,21 @@ public class GeneticProfile
         
         foreach (var modifier in enzyme.GeneticModifiers)
         {
-            var genotype = GetGenotype(modifier.RsId);
-            if (genotype == null) continue;
+            var rawGenotype = GetGenotype(modifier.RsId);
+            if (string.IsNullOrEmpty(rawGenotype)) continue;
             
-            // Count risk alleles
-            int riskAlleleCount = genotype.Count(c => c.ToString().Equals(modifier.RiskAllele, StringComparison.OrdinalIgnoreCase));
+            // 23andMe always reports on the Plus (+) strand.
+            // If the modifier (literature) defines the Risk Allele on the Minus (-) strand,
+            // we must flip the raw genotype to match the literature definition.
+            
+            string comparisonGenotype = rawGenotype;
+            if (modifier.Orientation == Strand.Minus)
+            {
+                comparisonGenotype = ComplementDna(rawGenotype);
+            }
+
+            // Count risk alleles in the (possibly flipped) genotype
+            int riskAlleleCount = comparisonGenotype.Count(c => c.ToString().Equals(modifier.RiskAllele, StringComparison.OrdinalIgnoreCase));
             
             multiplier *= riskAlleleCount switch
             {
@@ -49,6 +61,23 @@ public class GeneticProfile
         }
         
         return multiplier;
+    }
+
+    private string ComplementDna(string sequence)
+    {
+        char[] result = new char[sequence.Length];
+        for (int i = 0; i < sequence.Length; i++)
+        {
+            result[i] = sequence[i] switch
+            {
+                'A' => 'T',
+                'T' => 'A',
+                'C' => 'G',
+                'G' => 'C',
+                _ => sequence[i] // Keep unknown chars like '-' or '?' as is
+            };
+        }
+        return new string(result);
     }
 
     /// <summary>

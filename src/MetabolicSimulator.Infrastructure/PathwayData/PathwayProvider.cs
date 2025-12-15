@@ -294,9 +294,9 @@ public class PathwayProvider : IPathwayProvider
             Cofactors: new List<string> { "FAD", "NADPH" },
             GeneticModifiers: new List<GeneticModifier>
             {
-                new("rs1801133", "MTHFR", "T", 0.30, 0.65, 
+                new("rs1801133", "MTHFR", "T", Strand.Minus, 0.30, 0.65, 
                     "C677T: T/T shows ~70% reduced activity, C/T shows ~35% reduced activity"),
-                new("rs1801131", "MTHFR", "C", 0.50, 0.75,
+                new("rs1801131", "MTHFR", "C", Strand.Minus, 0.50, 0.75,
                     "A1298C: C/C shows ~50% reduced activity, A/C shows ~25% reduced activity")
             });
 
@@ -308,7 +308,7 @@ public class PathwayProvider : IPathwayProvider
             Cofactors: new List<string> { "Methylcobalamin" },
             GeneticModifiers: new List<GeneticModifier>
             {
-                new("rs1805087", "MTR", "G", 1.2, 1.1,
+                new("rs1805087", "MTR", "G", Strand.Plus, 1.2, 1.1,
                     "A2756G: G allele may increase activity")
             });
 
@@ -333,7 +333,7 @@ public class PathwayProvider : IPathwayProvider
             Cofactors: new List<string> { "PLP (B6)" },
             GeneticModifiers: new List<GeneticModifier>
             {
-                new("rs234706", "CBS", "T", 0.8, 0.9,
+                new("rs234706", "CBS", "T", Strand.Minus, 0.8, 0.9,
                     "C699T: Variable effect on transsulfuration")
             });
 
@@ -351,7 +351,7 @@ public class PathwayProvider : IPathwayProvider
             Cofactors: new List<string> { "Zn2+" },
             GeneticModifiers: new List<GeneticModifier>
             {
-                new("rs3733890", "BHMT", "A", 0.7, 0.85,
+                new("rs3733890", "BHMT", "A", Strand.Plus, 0.7, 0.85,
                     "G716A: Alters alternative methylation pathway efficiency")
             });
 
@@ -362,7 +362,7 @@ public class PathwayProvider : IPathwayProvider
             Cofactors: new List<string> { "Mg2+", "SAM" },
             GeneticModifiers: new List<GeneticModifier>
             {
-                new("rs4680", "COMT", "A", 0.30, 0.65,
+                new("rs4680", "COMT", "A", Strand.Plus, 0.30, 0.65,
                     "Val158Met: A/A (Met/Met) has 3-4× lower activity")
             });
 
