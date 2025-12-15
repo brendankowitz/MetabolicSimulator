@@ -1,7 +1,10 @@
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import { IonApp, IonRouterOutlet, setupIonicReact, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
+import { body, person } from 'ionicons/icons';
 import Home from './pages/Home';
+import Me from './pages/Me';
+import { ProfileProvider } from './contexts/ProfileContext';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -22,19 +25,36 @@ import '@ionic/react/css/display.css';
 setupIonicReact();
 
 const App: React.FC = () => {
-  console.log("App Rendering");
   return (
   <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
+    <ProfileProvider>
+      <IonReactRouter>
+        <IonTabs>
+          <IonRouterOutlet>
+            <Route exact path="/home">
+              <Home />
+            </Route>
+            <Route exact path="/me">
+              <Me />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/home" />
+            </Route>
+          </IonRouterOutlet>
+          
+          <IonTabBar slot="bottom">
+            <IonTabButton tab="home" href="/home">
+              <IonIcon icon={body} />
+              <IonLabel>Body</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="me" href="/me">
+              <IonIcon icon={person} />
+              <IonLabel>Me</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
+        </IonTabs>
+      </IonReactRouter>
+    </ProfileProvider>
   </IonApp>
   );
 };
