@@ -1,0 +1,99 @@
+:root {
+    --glass-bg: rgba(20, 20, 30, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --neon-blue: #00f3ff;
+    --neon-green: #00ff9d;
+    --neon-red: #ff0055;
+    --neon-purple: #bc13fe;
+}
+
+.anatomy-container {
+    width: 100%;
+    min-height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #1a1a2e 0%, #0f0f1a 100%);
+    border-radius: 24px;
+    margin-bottom: 20px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Grid Background Effect */
+.anatomy-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: 
+        linear-gradient(var(--glass-border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--glass-border) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.human-svg {
+    height: 90%;
+    max-width: 220px;
+    filter: drop-shadow(0px 0px 10px rgba(0, 243, 255, 0.2));
+    z-index: 2;
+}
+
+.organ-group {
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.organ-group:active {
+    transform: scale(0.95);
+}
+
+.organ-circle {
+    stroke: rgba(255,255,255,0.5);
+    stroke-width: 1px;
+    transition: fill 0.5s ease, filter 0.5s ease;
+}
+
+.organ-label {
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 0px 2px 4px rgba(0,0,0,0.8);
+    pointer-events: none;
+}
+
+/* Dynamic Glows based on status */
+.glow-good {
+    filter: drop-shadow(0 0 8px var(--neon-green));
+}
+.glow-warn {
+    filter: drop-shadow(0 0 8px #f1c40f);
+}
+.glow-bad {
+    filter: drop-shadow(0 0 12px var(--neon-red));
+}
+
+/* Pulse Animation */
+.pulse-path {
+    stroke-linecap: round;
+    animation: flow 2s infinite linear;
+    opacity: 0.6;
+}
+
+@keyframes flow {
+    0% {
+        stroke-dashoffset: 20;
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        stroke-dashoffset: 0;
+        opacity: 0.3;
+    }
+}

@@ -1,0 +1,52 @@
+[
+  {
+    "MetaboliteId": "glucose_blood",
+    "Name": "Fasting Glucose",
+    "Unit": "mM",
+    "NormalMin": 3.9,
+    "NormalMax": 5.6,
+    "OptimalMin": 4.2,
+    "OptimalMax": 4.7,
+    "Notes": "Normal: 70-100 mg/dL. Optimal: 75-85 mg/dL."
+  },
+  {
+    "MetaboliteId": "nad_plus_mito",
+    "Name": "NAD+ (Mitochondrial)",
+    "Unit": "mM",
+    "NormalMin": 0.3,
+    "NormalMax": 0.8,
+    "OptimalMin": 0.8,
+    "OptimalMax": 1.2,
+    "Notes": "Declines with age. Optimal levels mimic a healthy 20-year-old."
+  },
+  {
+    "MetaboliteId": "atp_cyto",
+    "Name": "ATP (Cytosolic)",
+    "Unit": "mM",
+    "NormalMin": 2.0,
+    "NormalMax": 5.0,
+    "OptimalMin": 4.0,
+    "OptimalMax": 6.0,
+    "Notes": "High energy charge is essential for repair processes."
+  },
+  {
+    "MetaboliteId": "gsh_cyto",
+    "Name": "Glutathione (Reduced)",
+    "Unit": "mM",
+    "NormalMin": 2.0,
+    "NormalMax": 5.0,
+    "OptimalMin": 5.0,
+    "OptimalMax": 8.0,
+    "Notes": "Primary antioxidant. Higher is generally better for longevity."
+  },
+  {
+    "MetaboliteId": "hcy",
+    "Name": "Homocysteine",
+    "Unit": "mM",
+    "NormalMin": 0.005,
+    "NormalMax": 0.015,
+    "OptimalMin": 0.005,
+    "OptimalMax": 0.007,
+    "Notes": "Lower is better. Optimal < 7 umol/L (0.007 mM)."
+  }
+]
