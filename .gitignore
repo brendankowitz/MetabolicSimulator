@@ -52,3 +52,23 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Simulation output
+*.csv
+
+# JetBrains/Rider
+.idea/
+
+# Node.js / React / Ionic
+node_modules/
+dist/
+build/
+.env
+.env.local
+.DS_Store
+package-lock.json
+yarn.lock
+
+# Mobile App specifics
+.ionic/
+capacitor.config.json.timestamp

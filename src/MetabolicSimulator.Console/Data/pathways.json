@@ -1,0 +1,1536 @@
+[
+    {
+        "Id":  "methylation_cycle",
+        "Name":  "Methylation Cycle",
+        "Description":  "Core methylation and folate pathways",
+        "Metabolites":  [
+                            {
+                                "Id":  "met",
+                                "Name":  "Methionine",
+                                "InitialConcentration":  0.03,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "sam",
+                                "Name":  "SAM",
+                                "InitialConcentration":  0.08,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "sah",
+                                "Name":  "SAH",
+                                "InitialConcentration":  0.02,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "hcy",
+                                "Name":  "Homocysteine",
+                                "InitialConcentration":  0.015,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "cysta",
+                                "Name":  "Cystathionine",
+                                "InitialConcentration":  0.005,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "cys",
+                                "Name":  "Cysteine",
+                                "InitialConcentration":  0.2,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "thf",
+                                "Name":  "THF",
+                                "InitialConcentration":  0.02,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "methylene_thf",
+                                "Name":  "5,10-Methylene-THF",
+                                "InitialConcentration":  0.015,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "methyl_thf",
+                                "Name":  "5-MTHF",
+                                "InitialConcentration":  0.02,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "bet",
+                                "Name":  "Betaine",
+                                "InitialConcentration":  0.1,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "dmg",
+                                "Name":  "Dimethylglycine",
+                                "InitialConcentration":  0.02,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "atp_cyto",
+                                "Name":  "ATP (Cytosol)",
+                                "InitialConcentration":  5.0,
+                                "Compartment":  "cytosol"
+                            }
+                        ],
+        "Reactions":  [
+                          {
+                              "Id":  "methyl_1",
+                              "Name":  "Methionine to SAM",
+                              "EnzymeId":  "mat",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "met",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "atp_cyto",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "sam",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "methyl_2",
+                              "Name":  "SAM Methylation (COMT)",
+                              "EnzymeId":  "comt",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "sam",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "sah",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "methyl_3",
+                              "Name":  "SAH to Homocysteine",
+                              "EnzymeId":  "sahh",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "sah",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "hcy",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "methyl_4",
+                              "Name":  "Homocysteine Remethylation (MTR)",
+                              "EnzymeId":  "mtr",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "hcy",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "methyl_thf",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "met",
+                                                   "Coefficient":  1
+                                               },
+                                               {
+                                                   "MetaboliteId":  "thf",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "folate_1",
+                              "Name":  "THF to Methylene-THF",
+                              "EnzymeId":  "shmt",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "thf",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "methylene_thf",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "folate_2",
+                              "Name":  "MTHFR Reaction",
+                              "EnzymeId":  "mthfr",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "methylene_thf",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "methyl_thf",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten",
+                              "Inhibitors":  [
+                                                 "sam"
+                                             ],
+                              "Ki":  0.1
+                          },
+                          {
+                              "Id":  "betaine_1",
+                              "Name":  "BHMT Pathway",
+                              "EnzymeId":  "bhmt",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "hcy",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "bet",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "met",
+                                                   "Coefficient":  1
+                                               },
+                                               {
+                                                   "MetaboliteId":  "dmg",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "transsulf_1",
+                              "Name":  "CBS Reaction",
+                              "EnzymeId":  "cbs",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "hcy",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "cysta",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "transsulf_2",
+                              "Name":  "CGL Reaction",
+                              "EnzymeId":  "cgl",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "cysta",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "cys",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          }
+                      ]
+    },
+    {
+        "Id":  "krebs_cycle",
+        "Name":  "Krebs Cycle",
+        "Description":  "The citric acid cycle comprises 8 enzymatic reactions converting acetyl-CoA to CO2.",
+        "Metabolites":  [
+                            {
+                                "Id":  "acetyl_coa",
+                                "Name":  "Acetyl-CoA",
+                                "InitialConcentration":  0.1,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "oxaloacetate",
+                                "Name":  "Oxaloacetate",
+                                "InitialConcentration":  0.02,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "citrate",
+                                "Name":  "Citrate",
+                                "InitialConcentration":  0.3,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "isocitrate",
+                                "Name":  "Isocitrate",
+                                "InitialConcentration":  0.02,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "alpha_kg",
+                                "Name":  "α-Ketoglutarate",
+                                "InitialConcentration":  0.1,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "succinyl_coa",
+                                "Name":  "Succinyl-CoA",
+                                "InitialConcentration":  0.05,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "succinate",
+                                "Name":  "Succinate",
+                                "InitialConcentration":  0.4,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "fumarate",
+                                "Name":  "Fumarate",
+                                "InitialConcentration":  0.03,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "malate",
+                                "Name":  "Malate",
+                                "InitialConcentration":  0.3,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "nad_plus_mito",
+                                "Name":  "NAD+ (Mitochondria)",
+                                "InitialConcentration":  1.0,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "nadh_mito",
+                                "Name":  "NADH (Mitochondria)",
+                                "InitialConcentration":  0.1,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "fad",
+                                "Name":  "FAD",
+                                "InitialConcentration":  0.3,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "fadh2",
+                                "Name":  "FADH2",
+                                "InitialConcentration":  0.05,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "coa",
+                                "Name":  "CoA",
+                                "InitialConcentration":  0.5,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "gtp",
+                                "Name":  "GTP",
+                                "InitialConcentration":  0.5,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "gdp",
+                                "Name":  "GDP",
+                                "InitialConcentration":  0.3,
+                                "Compartment":  "mitochondria"
+                            }
+                        ],
+        "Reactions":  [
+                          {
+                              "Id":  "krebs_1",
+                              "Name":  "Citrate Synthase Reaction",
+                              "EnzymeId":  "cs",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "acetyl_coa",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "oxaloacetate",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "citrate",
+                                                   "Coefficient":  1
+                                               },
+                                               {
+                                                   "MetaboliteId":  "coa",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten",
+                              "Inhibitors":  [
+                                                 "nadh_mito",
+                                                 "succinyl_coa"
+                                             ]
+                          },
+                          {
+                              "Id":  "krebs_2",
+                              "Name":  "Aconitase Reaction",
+                              "EnzymeId":  "aco",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "citrate",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "isocitrate",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "krebs_3",
+                              "Name":  "Isocitrate Dehydrogenase Reaction",
+                              "EnzymeId":  "idh",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "isocitrate",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "nad_plus_mito",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "alpha_kg",
+                                                   "Coefficient":  1
+                                               },
+                                               {
+                                                   "MetaboliteId":  "nadh_mito",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten",
+                              "Inhibitors":  [
+                                                 "nadh_mito"
+                                             ]
+                          },
+                          {
+                              "Id":  "krebs_4",
+                              "Name":  "α-Ketoglutarate Dehydrogenase Reaction",
+                              "EnzymeId":  "akgdh",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "alpha_kg",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "nad_plus_mito",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "coa",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "succinyl_coa",
+                                                   "Coefficient":  1
+                                               },
+                                               {
+                                                   "MetaboliteId":  "nadh_mito",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten",
+                              "Inhibitors":  [
+                                                 "succinyl_coa",
+                                                 "nadh_mito"
+                                             ]
+                          },
+                          {
+                              "Id":  "krebs_5",
+                              "Name":  "Succinyl-CoA Synthetase Reaction",
+                              "EnzymeId":  "scs",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "succinyl_coa",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "gdp",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "succinate",
+                                                   "Coefficient":  1
+                                               },
+                                               {
+                                                   "MetaboliteId":  "coa",
+                                                   "Coefficient":  1
+                                               },
+                                               {
+                                                   "MetaboliteId":  "gtp",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "krebs_6",
+                              "Name":  "Succinate Dehydrogenase Reaction",
+                              "EnzymeId":  "sdh",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "succinate",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "fad",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "fumarate",
+                                                   "Coefficient":  1
+                                               },
+                                               {
+                                                   "MetaboliteId":  "fadh2",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "krebs_7",
+                              "Name":  "Fumarase Reaction",
+                              "EnzymeId":  "fum",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "fumarate",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "malate",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "krebs_8",
+                              "Name":  "Malate Dehydrogenase Reaction",
+                              "EnzymeId":  "mdh",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "malate",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "nad_plus_mito",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "oxaloacetate",
+                                                   "Coefficient":  1
+                                               },
+                                               {
+                                                   "MetaboliteId":  "nadh_mito",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "krebs_input",
+                              "Name":  "Acetyl-CoA Input (PDH)",
+                              "EnzymeId":  "acetyl_source",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "coa",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "acetyl_coa",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MassAction"
+                          },
+                          {
+                              "Id":  "krebs_output",
+                              "Name":  "NADH Oxidation (ETC)",
+                              "EnzymeId":  "etc_complex1",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "nadh_mito",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "nad_plus_mito",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          }
+                      ]
+    },
+    {
+        "Id":  "nad_salvage",
+        "Name":  "NAD+ Salvage Pathway",
+        "Description":  "Recycles Nicotinamide into NAD+, crucial for longevity and Sirtuin activity.",
+        "Metabolites":  [
+                            {
+                                "Id":  "nam",
+                                "Name":  "Nicotinamide (NAM)",
+                                "InitialConcentration":  0.5,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "nmn",
+                                "Name":  "Nicotinamide Mononucleotide (NMN)",
+                                "InitialConcentration":  0.05,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "nad_plus_cyto",
+                                "Name":  "NAD+ (Cytosol)",
+                                "InitialConcentration":  0.8,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "atp_cyto",
+                                "Name":  "ATP (Cytosol)",
+                                "InitialConcentration":  5.0,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "prpp",
+                                "Name":  "PRPP",
+                                "InitialConcentration":  0.1,
+                                "Compartment":  "cytosol"
+                            }
+                        ],
+        "Reactions":  [
+                          {
+                              "Id":  "nad_1",
+                              "Name":  "NAMPT Reaction",
+                              "EnzymeId":  "nampt",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "nam",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "prpp",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "nmn",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "nad_2",
+                              "Name":  "NMNAT Reaction",
+                              "EnzymeId":  "nmnat",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "nmn",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "atp_cyto",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "nad_plus_cyto",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "nad_consumption_sirt",
+                              "Name":  "SIRT1 Consumption",
+                              "EnzymeId":  "sirt1",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "nad_plus_cyto",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "nam",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "nad_consumption_cd38",
+                              "Name":  "CD38 Consumption",
+                              "EnzymeId":  "cd38",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "nad_plus_cyto",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "nam",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          }
+                      ]
+    },
+    {
+        "Id":  "glycolysis",
+        "Name":  "Glycolysis",
+        "Description":  "Converts Glucose to Pyruvate, generating ATP and NADH.",
+        "Metabolites":  [
+                            {
+                                "Id":  "glucose_blood",
+                                "Name":  "Blood Glucose",
+                                "InitialConcentration":  5.0,
+                                "Compartment":  "blood"
+                            },
+                            {
+                                "Id":  "glucose_cell",
+                                "Name":  "Cellular Glucose",
+                                "InitialConcentration":  1.0,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "g6p",
+                                "Name":  "Glucose-6-Phosphate",
+                                "InitialConcentration":  0.1,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "f6p",
+                                "Name":  "Fructose-6-Phosphate",
+                                "InitialConcentration":  0.05,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "f16bp",
+                                "Name":  "Fructose-1,6-Bisphosphate",
+                                "InitialConcentration":  0.02,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "pep",
+                                "Name":  "Phosphoenolpyruvate",
+                                "InitialConcentration":  0.02,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "pyruvate",
+                                "Name":  "Pyruvate",
+                                "InitialConcentration":  0.1,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "atp_cyto",
+                                "Name":  "ATP (Cytosol)",
+                                "InitialConcentration":  5.0,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "adp_cyto",
+                                "Name":  "ADP (Cytosol)",
+                                "InitialConcentration":  0.5,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "insulin",
+                                "Name":  "Insulin",
+                                "InitialConcentration":  0.5,
+                                "Compartment":  "blood"
+                            },
+                            {
+                                "Id":  "acetyl_coa",
+                                "Name":  "Acetyl-CoA",
+                                "InitialConcentration":  0.1,
+                                "Compartment":  "mitochondria"
+                            }
+                        ],
+        "Reactions":  [
+                          {
+                              "Id":  "gly_1",
+                              "Name":  "Glucose Transport (GLUT4)",
+                              "EnzymeId":  "glut4",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "glucose_blood",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "glucose_cell",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten",
+                              "Activators":  [
+                                                 "insulin"
+                                             ],
+                              "Ka":  0.2
+                          },
+                          {
+                              "Id":  "gly_2",
+                              "Name":  "Hexokinase Reaction",
+                              "EnzymeId":  "hk",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "glucose_cell",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "atp_cyto",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "g6p",
+                                                   "Coefficient":  1
+                                               },
+                                               {
+                                                   "MetaboliteId":  "adp_cyto",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "gly_3",
+                              "Name":  "Isomerization (G6P -\u003e F6P)",
+                              "EnzymeId":  "hk",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "g6p",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "f6p",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MassAction"
+                          },
+                          {
+                              "Id":  "gly_4",
+                              "Name":  "PFK-1 Reaction",
+                              "EnzymeId":  "pfk1",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "f6p",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "atp_cyto",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "f16bp",
+                                                   "Coefficient":  1
+                                               },
+                                               {
+                                                   "MetaboliteId":  "adp_cyto",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten",
+                              "Inhibitors":  [
+                                                 "atp_cyto"
+                                             ],
+                              "Ki":  5.0
+                          },
+                          {
+                              "Id":  "gly_5",
+                              "Name":  "Pyruvate Kinase Reaction",
+                              "EnzymeId":  "pk",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "pep",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "adp_cyto",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "pyruvate",
+                                                   "Coefficient":  1
+                                               },
+                                               {
+                                                   "MetaboliteId":  "atp_cyto",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "gly_6",
+                              "Name":  "PDH Reaction (Pyruvate -\u003e Acetyl-CoA)",
+                              "EnzymeId":  "pdh",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "pyruvate",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "acetyl_coa",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "gly_input_pep",
+                              "Name":  "PEP Input (Simplified Glycolysis)",
+                              "EnzymeId":  "acetyl_source",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "f16bp",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "pep",
+                                                   "Coefficient":  2
+                                               }
+                                           ],
+                              "Kinetics":  "MassAction"
+                          }
+                      ]
+    },
+    {
+        "Id":  "inflammation",
+        "Name":  "Oxidative Stress \u0026 Inflammation",
+        "Description":  "ROS generation, Antioxidant Defense, and Inflammation signaling.",
+        "Metabolites":  [
+                            {
+                                "Id":  "ros",
+                                "Name":  "Reactive Oxygen Species",
+                                "InitialConcentration":  0.01,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "gsh_cyto",
+                                "Name":  "Glutathione (Reduced)",
+                                "InitialConcentration":  5.0,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "gssg_cyto",
+                                "Name":  "Glutathione (Oxidized)",
+                                "InitialConcentration":  0.2,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "nfkb_inactive",
+                                "Name":  "NF-kB (Inactive)",
+                                "InitialConcentration":  1.0,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "nfkb_active",
+                                "Name":  "NF-kB (Active)",
+                                "InitialConcentration":  0.1,
+                                "Compartment":  "nucleus"
+                            },
+                            {
+                                "Id":  "cortisol",
+                                "Name":  "Cortisol",
+                                "InitialConcentration":  0.1,
+                                "Compartment":  "blood"
+                            },
+                            {
+                                "Id":  "nadh_mito",
+                                "Name":  "NADH (Mitochondria)",
+                                "InitialConcentration":  0.1,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "nad_plus_mito",
+                                "Name":  "NAD+ (Mitochondria)",
+                                "InitialConcentration":  1.0,
+                                "Compartment":  "mitochondria"
+                            }
+                        ],
+        "Reactions":  [
+                          {
+                              "Id":  "ros_gen",
+                              "Name":  "ROS Generation (ETC Leak)",
+                              "EnzymeId":  "etc_leak",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "nadh_mito",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "ros",
+                                                   "Coefficient":  1
+                                               },
+                                               {
+                                                   "MetaboliteId":  "nad_plus_mito",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MassAction"
+                          },
+                          {
+                              "Id":  "ros_detox",
+                              "Name":  "ROS Detoxification (GPx)",
+                              "EnzymeId":  "gpx",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "ros",
+                                                     "Coefficient":  2
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "gsh_cyto",
+                                                     "Coefficient":  2
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "gssg_cyto",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "gsh_recycle",
+                              "Name":  "Glutathione Recycling (GR)",
+                              "EnzymeId":  "gr",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "gssg_cyto",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "gsh_cyto",
+                                                   "Coefficient":  2
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "nfkb_activation",
+                              "Name":  "NF-kB Activation by ROS",
+                              "EnzymeId":  "acetyl_source",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "nfkb_inactive",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "ros",
+                                                     "Coefficient":  0
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "nfkb_active",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten",
+                              "Activators":  [
+                                                 "ros"
+                                             ],
+                              "Ka":  0.05
+                          }
+                      ]
+    },
+    {
+        "Id":  "fat_metabolism",
+        "Name":  "Fat Metabolism (Beta-Oxidation)",
+        "Description":  "Breakdown of Fatty Acids into Acetyl-CoA for energy.",
+        "Metabolites":  [
+                            {
+                                "Id":  "fatty_acids_blood",
+                                "Name":  "Free Fatty Acids",
+                                "InitialConcentration":  0.5,
+                                "Compartment":  "blood"
+                            },
+                            {
+                                "Id":  "fatty_acyl_coa",
+                                "Name":  "Fatty Acyl-CoA",
+                                "InitialConcentration":  0.05,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "carnitine",
+                                "Name":  "Carnitine",
+                                "InitialConcentration":  0.5,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "acyl_carnitine",
+                                "Name":  "Acyl-Carnitine",
+                                "InitialConcentration":  0.05,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "acetyl_coa",
+                                "Name":  "Acetyl-CoA",
+                                "InitialConcentration":  0.1,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "fadh2",
+                                "Name":  "FADH2",
+                                "InitialConcentration":  0.05,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "nadh_mito",
+                                "Name":  "NADH (Mitochondria)",
+                                "InitialConcentration":  0.1,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "fad",
+                                "Name":  "FAD",
+                                "InitialConcentration":  0.3,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "nad_plus_mito",
+                                "Name":  "NAD+ (Mitochondria)",
+                                "InitialConcentration":  1.0,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "atp_cyto",
+                                "Name":  "ATP (Cytosol)",
+                                "InitialConcentration":  5.0,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "coa",
+                                "Name":  "CoA",
+                                "InitialConcentration":  0.5,
+                                "Compartment":  "mitochondria"
+                            }
+                        ],
+        "Reactions":  [
+                          {
+                              "Id":  "fat_activation",
+                              "Name":  "Fatty Acid Activation (ACS)",
+                              "EnzymeId":  "acs",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "fatty_acids_blood",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "atp_cyto",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "fatty_acyl_coa",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "cpt1",
+                              "Name":  "Carnitine Palmitoyltransferase 1 (CPT1)",
+                              "EnzymeId":  "cpt1",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "fatty_acyl_coa",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "carnitine",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "acyl_carnitine",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten",
+                              "Inhibitors":  [
+                                                 "malonyl_coa"
+                                             ]
+                          },
+                          {
+                              "Id":  "beta_oxidation",
+                              "Name":  "Beta-Oxidation Cycle",
+                              "EnzymeId":  "beta_ox_complex",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "acyl_carnitine",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "fad",
+                                                     "Coefficient":  7
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "nad_plus_mito",
+                                                     "Coefficient":  7
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "acetyl_coa",
+                                                   "Coefficient":  8
+                                               },
+                                               {
+                                                   "MetaboliteId":  "fadh2",
+                                                   "Coefficient":  7
+                                               },
+                                               {
+                                                   "MetaboliteId":  "nadh_mito",
+                                                   "Coefficient":  7
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          }
+                      ]
+    },
+    {
+        "Id":  "longevity_switches",
+        "Name":  "Longevity Control (mTOR/AMPK)",
+        "Description":  "The central sensing network regulating growth vs. repair.",
+        "Metabolites":  [
+                            {
+                                "Id":  "ampk_inactive",
+                                "Name":  "AMPK (Inactive)",
+                                "InitialConcentration":  1.0,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "ampk_active",
+                                "Name":  "AMPK (Active)",
+                                "InitialConcentration":  0.1,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "mtor_active",
+                                "Name":  "mTORC1 (Active)",
+                                "InitialConcentration":  0.5,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "mtor_inactive",
+                                "Name":  "mTORC1 (Inactive)",
+                                "InitialConcentration":  0.5,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "atp_cyto",
+                                "Name":  "ATP (Cytosol)",
+                                "InitialConcentration":  5.0,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "amp",
+                                "Name":  "AMP",
+                                "InitialConcentration":  0.05,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "leucine",
+                                "Name":  "Leucine",
+                                "InitialConcentration":  0.1,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "insulin",
+                                "Name":  "Insulin",
+                                "InitialConcentration":  0.5,
+                                "Compartment":  "blood"
+                            }
+                        ],
+        "Reactions":  [
+                          {
+                              "Id":  "ampk_activation",
+                              "Name":  "AMPK Activation (Low Energy)",
+                              "EnzymeId":  "lkb1",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "ampk_inactive",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "ampk_active",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten",
+                              "Activators":  [
+                                                 "amp"
+                                             ]
+                          },
+                          {
+                              "Id":  "mtor_activation",
+                              "Name":  "mTOR Activation (Growth)",
+                              "EnzymeId":  "rhe_b",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "mtor_inactive",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "mtor_active",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten",
+                              "Activators":  [
+                                                 "leucine",
+                                                 "insulin",
+                                                 "atp_cyto"
+                                             ],
+                              "Inhibitors":  [
+                                                 "ampk_active"
+                                             ]
+                          },
+                          {
+                              "Id":  "autophagy_trigger",
+                              "Name":  "Autophagy Initiation",
+                              "EnzymeId":  "ul_k1",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "ampk_active",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "ampk_inactive",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MassAction",
+                              "Inhibitors":  [
+                                                 "mtor_active"
+                                             ]
+                          }
+                      ]
+    },
+    {
+        "Id":  "urea_cycle",
+        "Name":  "Urea Cycle",
+        "Description":  "Detoxification of Ammonia from protein breakdown.",
+        "Metabolites":  [
+                            {
+                                "Id":  "ammonia",
+                                "Name":  "Ammonia",
+                                "InitialConcentration":  0.05,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "co2",
+                                "Name":  "CO2",
+                                "InitialConcentration":  1.0,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "ornithine",
+                                "Name":  "Ornithine",
+                                "InitialConcentration":  0.1,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "citrulline",
+                                "Name":  "Citrulline",
+                                "InitialConcentration":  0.1,
+                                "Compartment":  "mitochondria"
+                            },
+                            {
+                                "Id":  "aspartate",
+                                "Name":  "Aspartate",
+                                "InitialConcentration":  0.2,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "arginine",
+                                "Name":  "Arginine",
+                                "InitialConcentration":  0.2,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "urea",
+                                "Name":  "Urea",
+                                "InitialConcentration":  0.0,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "fumarate",
+                                "Name":  "Fumarate",
+                                "InitialConcentration":  0.03,
+                                "Compartment":  "cytosol"
+                            },
+                            {
+                                "Id":  "atp_mito",
+                                "Name":  "ATP (Mitochondria)",
+                                "InitialConcentration":  4.0,
+                                "Compartment":  "mitochondria"
+                            }
+                        ],
+        "Reactions":  [
+                          {
+                              "Id":  "cps1",
+                              "Name":  "Carbamoyl Phosphate Synthetase I",
+                              "EnzymeId":  "cps1",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "ammonia",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "co2",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "atp_mito",
+                                                     "Coefficient":  2
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "citrulline",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "otc",
+                              "Name":  "Ornithine Transcarbamylase",
+                              "EnzymeId":  "otc",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "citrulline",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "ornithine",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "citrulline",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          },
+                          {
+                              "Id":  "ass",
+                              "Name":  "Argininosuccinate Synthetase (Krebs Shunt)",
+                              "EnzymeId":  "ass",
+                              "Substrates":  [
+                                                 {
+                                                     "MetaboliteId":  "citrulline",
+                                                     "Coefficient":  1
+                                                 },
+                                                 {
+                                                     "MetaboliteId":  "aspartate",
+                                                     "Coefficient":  1
+                                                 }
+                                             ],
+                              "Products":  [
+                                               {
+                                                   "MetaboliteId":  "arginine",
+                                                   "Coefficient":  1
+                                               },
+                                               {
+                                                   "MetaboliteId":  "fumarate",
+                                                   "Coefficient":  1
+                                               }
+                                           ],
+                              "Kinetics":  "MichaelisMenten"
+                          }
+                      ]
+    }
+]

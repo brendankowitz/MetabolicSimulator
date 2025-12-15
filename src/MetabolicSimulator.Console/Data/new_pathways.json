@@ -1,0 +1,134 @@
+[
+  {
+    "Id": "fat_metabolism",
+    "Name": "Fat Metabolism (Beta-Oxidation)",
+    "Description": "Breakdown of Fatty Acids into Acetyl-CoA for energy.",
+    "Metabolites": [
+      { "Id": "fatty_acids_blood", "Name": "Free Fatty Acids", "InitialConcentration": 0.5, "Compartment": "blood" },
+      { "Id": "fatty_acyl_coa", "Name": "Fatty Acyl-CoA", "InitialConcentration": 0.05, "Compartment": "cytosol" },
+      { "Id": "carnitine", "Name": "Carnitine", "InitialConcentration": 0.5, "Compartment": "cytosol" },
+      { "Id": "acyl_carnitine", "Name": "Acyl-Carnitine", "InitialConcentration": 0.05, "Compartment": "mitochondria" },
+      { "Id": "acetyl_coa", "Name": "Acetyl-CoA", "InitialConcentration": 0.1, "Compartment": "mitochondria" },
+      { "Id": "fadh2", "Name": "FADH2", "InitialConcentration": 0.05, "Compartment": "mitochondria" },
+      { "Id": "nadh_mito", "Name": "NADH (Mitochondria)", "InitialConcentration": 0.1, "Compartment": "mitochondria" },
+      { "Id": "fad", "Name": "FAD", "InitialConcentration": 0.3, "Compartment": "mitochondria" },
+      { "Id": "nad_plus_mito", "Name": "NAD+ (Mitochondria)", "InitialConcentration": 1.0, "Compartment": "mitochondria" },
+      { "Id": "atp_cyto", "Name": "ATP (Cytosol)", "InitialConcentration": 5.0, "Compartment": "cytosol" },
+      { "Id": "coa", "Name": "CoA", "InitialConcentration": 0.5, "Compartment": "mitochondria" }
+    ],
+    "Reactions": [
+      {
+        "Id": "fat_activation",
+        "Name": "Fatty Acid Activation (ACS)",
+        "EnzymeId": "acs",
+        "Substrates": [ { "MetaboliteId": "fatty_acids_blood", "Coefficient": 1 }, { "MetaboliteId": "atp_cyto", "Coefficient": 1 } ],
+        "Products": [ { "MetaboliteId": "fatty_acyl_coa", "Coefficient": 1 } ],
+        "Kinetics": "MichaelisMenten"
+      },
+      {
+        "Id": "cpt1",
+        "Name": "Carnitine Palmitoyltransferase 1 (CPT1)",
+        "EnzymeId": "cpt1",
+        "Substrates": [ { "MetaboliteId": "fatty_acyl_coa", "Coefficient": 1 }, { "MetaboliteId": "carnitine", "Coefficient": 1 } ],
+        "Products": [ { "MetaboliteId": "acyl_carnitine", "Coefficient": 1 } ],
+        "Kinetics": "MichaelisMenten",
+        "Inhibitors": [ "malonyl_coa" ] 
+      },
+      {
+        "Id": "beta_oxidation",
+        "Name": "Beta-Oxidation Cycle",
+        "EnzymeId": "beta_ox_complex", 
+        "Substrates": [ { "MetaboliteId": "acyl_carnitine", "Coefficient": 1 }, { "MetaboliteId": "fad", "Coefficient": 7 }, { "MetaboliteId": "nad_plus_mito", "Coefficient": 7 } ],
+        "Products": [ { "MetaboliteId": "acetyl_coa", "Coefficient": 8 }, { "MetaboliteId": "fadh2", "Coefficient": 7 }, { "MetaboliteId": "nadh_mito", "Coefficient": 7 } ],
+        "Kinetics": "MichaelisMenten"
+      }
+    ]
+  },
+  {
+    "Id": "longevity_switches",
+    "Name": "Longevity Control (mTOR/AMPK)",
+    "Description": "The central sensing network regulating growth vs. repair.",
+    "Metabolites": [
+      { "Id": "ampk_inactive", "Name": "AMPK (Inactive)", "InitialConcentration": 1.0, "Compartment": "cytosol" },
+      { "Id": "ampk_active", "Name": "AMPK (Active)", "InitialConcentration": 0.1, "Compartment": "cytosol" },
+      { "Id": "mtor_active", "Name": "mTORC1 (Active)", "InitialConcentration": 0.5, "Compartment": "cytosol" },
+      { "Id": "mtor_inactive", "Name": "mTORC1 (Inactive)", "InitialConcentration": 0.5, "Compartment": "cytosol" },
+      { "Id": "atp_cyto", "Name": "ATP (Cytosol)", "InitialConcentration": 5.0, "Compartment": "cytosol" },
+      { "Id": "amp", "Name": "AMP", "InitialConcentration": 0.05, "Compartment": "cytosol" },
+      { "Id": "leucine", "Name": "Leucine", "InitialConcentration": 0.1, "Compartment": "cytosol" },
+      { "Id": "insulin", "Name": "Insulin", "InitialConcentration": 0.5, "Compartment": "blood" }
+    ],
+    "Reactions": [
+      {
+        "Id": "ampk_activation",
+        "Name": "AMPK Activation (Low Energy)",
+        "EnzymeId": "lkb1",
+        "Substrates": [ { "MetaboliteId": "ampk_inactive", "Coefficient": 1 } ],
+        "Products": [ { "MetaboliteId": "ampk_active", "Coefficient": 1 } ],
+        "Kinetics": "MichaelisMenten",
+        "Activators": [ "amp" ]
+      },
+      {
+        "Id": "mtor_activation",
+        "Name": "mTOR Activation (Growth)",
+        "EnzymeId": "rhe_b",
+        "Substrates": [ { "MetaboliteId": "mtor_inactive", "Coefficient": 1 } ],
+        "Products": [ { "MetaboliteId": "mtor_active", "Coefficient": 1 } ],
+        "Kinetics": "MichaelisMenten",
+        "Activators": [ "leucine", "insulin", "atp_cyto" ],
+        "Inhibitors": [ "ampk_active" ]
+      },
+      {
+        "Id": "autophagy_trigger",
+        "Name": "Autophagy Initiation",
+        "EnzymeId": "ul_k1",
+        "Substrates": [ { "MetaboliteId": "ampk_active", "Coefficient": 1 } ],
+        "Products": [ { "MetaboliteId": "ampk_inactive", "Coefficient": 1 } ], 
+        "Kinetics": "MassAction",
+        "Inhibitors": [ "mtor_active" ]
+      }
+    ]
+  },
+  {
+    "Id": "urea_cycle",
+    "Name": "Urea Cycle",
+    "Description": "Detoxification of Ammonia from protein breakdown.",
+    "Metabolites": [
+      { "Id": "ammonia", "Name": "Ammonia", "InitialConcentration": 0.05, "Compartment": "mitochondria" },
+      { "Id": "co2", "Name": "CO2", "InitialConcentration": 1.0, "Compartment": "mitochondria" },
+      { "Id": "ornithine", "Name": "Ornithine", "InitialConcentration": 0.1, "Compartment": "mitochondria" },
+      { "Id": "citrulline", "Name": "Citrulline", "InitialConcentration": 0.1, "Compartment": "mitochondria" },
+      { "Id": "aspartate", "Name": "Aspartate", "InitialConcentration": 0.2, "Compartment": "cytosol" },
+      { "Id": "arginine", "Name": "Arginine", "InitialConcentration": 0.2, "Compartment": "cytosol" },
+      { "Id": "urea", "Name": "Urea", "InitialConcentration": 0.0, "Compartment": "cytosol" },
+      { "Id": "fumarate", "Name": "Fumarate", "InitialConcentration": 0.03, "Compartment": "cytosol" },
+      { "Id": "atp_mito", "Name": "ATP (Mitochondria)", "InitialConcentration": 4.0, "Compartment": "mitochondria" }
+    ],
+    "Reactions": [
+      {
+        "Id": "cps1",
+        "Name": "Carbamoyl Phosphate Synthetase I",
+        "EnzymeId": "cps1",
+        "Substrates": [ { "MetaboliteId": "ammonia", "Coefficient": 1 }, { "MetaboliteId": "co2", "Coefficient": 1 }, { "MetaboliteId": "atp_mito", "Coefficient": 2 } ],
+        "Products": [ { "MetaboliteId": "citrulline", "Coefficient": 1 } ], 
+        "Kinetics": "MichaelisMenten"
+      },
+      {
+        "Id": "otc",
+        "Name": "Ornithine Transcarbamylase",
+        "EnzymeId": "otc",
+        "Substrates": [ { "MetaboliteId": "citrulline", "Coefficient": 1 }, { "MetaboliteId": "ornithine", "Coefficient": 1 } ],
+        "Products": [ { "MetaboliteId": "citrulline", "Coefficient": 1 } ], 
+        "Kinetics": "MichaelisMenten"
+      },
+      {
+        "Id": "ass",
+        "Name": "Argininosuccinate Synthetase (Krebs Shunt)",
+        "EnzymeId": "ass",
+        "Substrates": [ { "MetaboliteId": "citrulline", "Coefficient": 1 }, { "MetaboliteId": "aspartate", "Coefficient": 1 } ],
+        "Products": [ { "MetaboliteId": "arginine", "Coefficient": 1 }, { "MetaboliteId": "fumarate", "Coefficient": 1 } ],
+        "Kinetics": "MichaelisMenten"
+      }
+    ]
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "DisplayName": "My Digital Twin",
+  "Age": 35,
+  "WeightKg": 75.0,
+  "HeightCm": 175.0,
+  "Gender": "Male",
+  "SleepHours": 6.5,
+  "SleepQuality": 78.0,
+  "GeneticDataPath": "23andme_raw_data.txt",
+  "LabResults": [
+    { "Name": "Fasting Glucose", "Value": 92.0, "Unit": "mg/dL", "Date": "2025-10-15" },
+    { "Name": "HbA1c", "Value": 5.4, "Unit": "%", "Date": "2025-10-15" },
+    { "Name": "Homocysteine", "Value": 11.5, "Unit": "umol/L", "Date": "2025-10-15" },
+    { "Name": "Triglycerides", "Value": 85.0, "Unit": "mg/dL", "Date": "2025-10-15" },
+    { "Name": "Vitamin D", "Value": 45.0, "Unit": "ng/mL", "Date": "2025-10-15" }
+  ]
+}

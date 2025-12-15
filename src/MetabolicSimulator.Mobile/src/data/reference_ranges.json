@@ -1,0 +1,442 @@
+[
+  {
+    "MetaboliteId": "glucose_blood",
+    "Name": "Fasting Glucose",
+    "Unit": "mM",
+    "NormalMin": 3.9,
+    "NormalMax": 5.6,
+    "OptimalMin": 4.2,
+    "OptimalMax": 5.0,
+    "Notes": "Normal: 70-100 mg/dL. Optimal: 75-90 mg/dL."
+  },
+  {
+    "MetaboliteId": "glucose_cell",
+    "Name": "Cellular Glucose",
+    "Unit": "mM",
+    "NormalMin": 0.5,
+    "NormalMax": 2.0,
+    "OptimalMin": 0.8,
+    "OptimalMax": 1.5,
+    "Notes": "Intracellular glucose for glycolysis."
+  },
+  {
+    "MetaboliteId": "atp_cyto",
+    "Name": "ATP (Cytosolic)",
+    "Unit": "mM",
+    "NormalMin": 2.0,
+    "NormalMax": 6.0,
+    "OptimalMin": 4.0,
+    "OptimalMax": 5.5,
+    "Notes": "High energy charge essential for cellular function."
+  },
+  {
+    "MetaboliteId": "adp_cyto",
+    "Name": "ADP (Cytosolic)",
+    "Unit": "mM",
+    "NormalMin": 0.2,
+    "NormalMax": 1.0,
+    "OptimalMin": 0.3,
+    "OptimalMax": 0.6,
+    "Notes": "Substrate for ATP synthesis. ATP/ADP ratio should be >5."
+  },
+  {
+    "MetaboliteId": "nad_plus_mito",
+    "Name": "NAD+ (Mitochondrial)",
+    "Unit": "mM",
+    "NormalMin": 0.5,
+    "NormalMax": 1.5,
+    "OptimalMin": 0.8,
+    "OptimalMax": 1.2,
+    "Notes": "Declines with age. Optimal levels mimic healthy 20-year-old."
+  },
+  {
+    "MetaboliteId": "nadh_mito",
+    "Name": "NADH (Mitochondrial)",
+    "Unit": "mM",
+    "NormalMin": 0.05,
+    "NormalMax": 0.3,
+    "OptimalMin": 0.08,
+    "OptimalMax": 0.15,
+    "Notes": "NAD+/NADH ratio should be ~3-10 in mitochondria."
+  },
+  {
+    "MetaboliteId": "nad_plus_cyto",
+    "Name": "NAD+ (Cytosolic)",
+    "Unit": "mM",
+    "NormalMin": 0.4,
+    "NormalMax": 1.0,
+    "OptimalMin": 0.6,
+    "OptimalMax": 0.9,
+    "Notes": "Cytosolic NAD+ for SIRT1 activity."
+  },
+  {
+    "MetaboliteId": "sam",
+    "Name": "S-Adenosylmethionine",
+    "Unit": "mM",
+    "NormalMin": 0.04,
+    "NormalMax": 0.12,
+    "OptimalMin": 0.06,
+    "OptimalMax": 0.10,
+    "Notes": "Primary methyl donor. Critical for epigenetics."
+  },
+  {
+    "MetaboliteId": "sah",
+    "Name": "S-Adenosylhomocysteine",
+    "Unit": "mM",
+    "NormalMin": 0.01,
+    "NormalMax": 0.04,
+    "OptimalMin": 0.01,
+    "OptimalMax": 0.025,
+    "Notes": "SAM/SAH ratio should be >4 for optimal methylation."
+  },
+  {
+    "MetaboliteId": "hcy",
+    "Name": "Homocysteine",
+    "Unit": "mM",
+    "NormalMin": 0.005,
+    "NormalMax": 0.015,
+    "OptimalMin": 0.005,
+    "OptimalMax": 0.008,
+    "Notes": "Lower is better. Elevated = cardiovascular risk."
+  },
+  {
+    "MetaboliteId": "met",
+    "Name": "Methionine",
+    "Unit": "mM",
+    "NormalMin": 0.02,
+    "NormalMax": 0.05,
+    "OptimalMin": 0.025,
+    "OptimalMax": 0.04,
+    "Notes": "Essential amino acid for methylation cycle."
+  },
+  {
+    "MetaboliteId": "methyl_thf",
+    "Name": "5-MTHF (Methylfolate)",
+    "Unit": "mM",
+    "NormalMin": 0.01,
+    "NormalMax": 0.04,
+    "OptimalMin": 0.015,
+    "OptimalMax": 0.03,
+    "Notes": "Active folate form. MTHFR SNPs affect levels."
+  },
+  {
+    "MetaboliteId": "gsh_cyto",
+    "Name": "Glutathione (Reduced)",
+    "Unit": "mM",
+    "NormalMin": 2.0,
+    "NormalMax": 7.0,
+    "OptimalMin": 4.0,
+    "OptimalMax": 6.0,
+    "Notes": "Primary antioxidant. Higher is better for longevity."
+  },
+  {
+    "MetaboliteId": "gssg_cyto",
+    "Name": "Glutathione (Oxidized)",
+    "Unit": "mM",
+    "NormalMin": 0.05,
+    "NormalMax": 0.5,
+    "OptimalMin": 0.1,
+    "OptimalMax": 0.25,
+    "Notes": "GSH/GSSG ratio should be >10 for redox balance."
+  },
+  {
+    "MetaboliteId": "ros",
+    "Name": "Reactive Oxygen Species",
+    "Unit": "mM",
+    "NormalMin": 0.0,
+    "NormalMax": 0.02,
+    "OptimalMin": 0.001,
+    "OptimalMax": 0.005,
+    "Notes": "Some ROS needed for signaling, excess causes damage."
+  },
+  {
+    "MetaboliteId": "insulin",
+    "Name": "Insulin",
+    "Unit": "mM",
+    "NormalMin": 0.1,
+    "NormalMax": 1.5,
+    "OptimalMin": 0.3,
+    "OptimalMax": 0.8,
+    "Notes": "Fasting: 2-12 uU/mL. Lower is better for longevity."
+  },
+  {
+    "MetaboliteId": "cortisol",
+    "Name": "Cortisol",
+    "Unit": "mM",
+    "NormalMin": 0.1,
+    "NormalMax": 0.7,
+    "OptimalMin": 0.2,
+    "OptimalMax": 0.5,
+    "Notes": "Varies by time of day. Peak in morning."
+  },
+  {
+    "MetaboliteId": "pyruvate",
+    "Name": "Pyruvate",
+    "Unit": "mM",
+    "NormalMin": 0.05,
+    "NormalMax": 0.2,
+    "OptimalMin": 0.08,
+    "OptimalMax": 0.15,
+    "Notes": "Glycolysis endpoint. Enters Krebs as acetyl-CoA."
+  },
+  {
+    "MetaboliteId": "acetyl_coa",
+    "Name": "Acetyl-CoA",
+    "Unit": "mM",
+    "NormalMin": 0.05,
+    "NormalMax": 0.2,
+    "OptimalMin": 0.08,
+    "OptimalMax": 0.15,
+    "Notes": "Central metabolic hub. Enters Krebs cycle."
+  },
+  {
+    "MetaboliteId": "citrate",
+    "Name": "Citrate",
+    "Unit": "mM",
+    "NormalMin": 0.1,
+    "NormalMax": 0.5,
+    "OptimalMin": 0.2,
+    "OptimalMax": 0.4,
+    "Notes": "Krebs cycle intermediate. Inhibits PFK when high."
+  },
+  {
+    "MetaboliteId": "alpha_kg",
+    "Name": "Alpha-Ketoglutarate",
+    "Unit": "mM",
+    "NormalMin": 0.05,
+    "NormalMax": 0.2,
+    "OptimalMin": 0.08,
+    "OptimalMax": 0.15,
+    "Notes": "Links Krebs to amino acid metabolism."
+  },
+  {
+    "MetaboliteId": "succinate",
+    "Name": "Succinate",
+    "Unit": "mM",
+    "NormalMin": 0.2,
+    "NormalMax": 0.6,
+    "OptimalMin": 0.3,
+    "OptimalMax": 0.5,
+    "Notes": "Krebs intermediate. Feeds Complex II."
+  },
+  {
+    "MetaboliteId": "fumarate",
+    "Name": "Fumarate",
+    "Unit": "mM",
+    "NormalMin": 0.02,
+    "NormalMax": 0.1,
+    "OptimalMin": 0.03,
+    "OptimalMax": 0.06,
+    "Notes": "Links urea cycle to Krebs cycle."
+  },
+  {
+    "MetaboliteId": "malate",
+    "Name": "Malate",
+    "Unit": "mM",
+    "NormalMin": 0.1,
+    "NormalMax": 0.5,
+    "OptimalMin": 0.2,
+    "OptimalMax": 0.4,
+    "Notes": "Krebs intermediate. Part of malate-aspartate shuttle."
+  },
+  {
+    "MetaboliteId": "oxaloacetate",
+    "Name": "Oxaloacetate",
+    "Unit": "mM",
+    "NormalMin": 0.01,
+    "NormalMax": 0.05,
+    "OptimalMin": 0.015,
+    "OptimalMax": 0.03,
+    "Notes": "Krebs acceptor molecule. Links to gluconeogenesis."
+  },
+  {
+    "MetaboliteId": "fatty_acids_blood",
+    "Name": "Free Fatty Acids",
+    "Unit": "mM",
+    "NormalMin": 0.2,
+    "NormalMax": 0.8,
+    "OptimalMin": 0.3,
+    "OptimalMax": 0.6,
+    "Notes": "Elevated in fasting/diabetes. Energy source."
+  },
+  {
+    "MetaboliteId": "urea",
+    "Name": "Blood Urea Nitrogen",
+    "Unit": "mM",
+    "NormalMin": 2.5,
+    "NormalMax": 8.0,
+    "OptimalMin": 3.5,
+    "OptimalMax": 6.0,
+    "Notes": "7-20 mg/dL normal. Reflects protein metabolism."
+  },
+  {
+    "MetaboliteId": "ammonia",
+    "Name": "Ammonia",
+    "Unit": "mM",
+    "NormalMin": 0.01,
+    "NormalMax": 0.06,
+    "OptimalMin": 0.02,
+    "OptimalMax": 0.04,
+    "Notes": "Toxic at high levels. Converted to urea."
+  },
+  {
+    "MetaboliteId": "arginine",
+    "Name": "Arginine",
+    "Unit": "mM",
+    "NormalMin": 0.1,
+    "NormalMax": 0.3,
+    "OptimalMin": 0.15,
+    "OptimalMax": 0.25,
+    "Notes": "NO precursor. Urea cycle intermediate."
+  },
+  {
+    "MetaboliteId": "citrulline",
+    "Name": "Citrulline",
+    "Unit": "mM",
+    "NormalMin": 0.02,
+    "NormalMax": 0.08,
+    "OptimalMin": 0.03,
+    "OptimalMax": 0.06,
+    "Notes": "Urea cycle intermediate. Marker of gut health."
+  },
+  {
+    "MetaboliteId": "ornithine",
+    "Name": "Ornithine",
+    "Unit": "mM",
+    "NormalMin": 0.05,
+    "NormalMax": 0.15,
+    "OptimalMin": 0.08,
+    "OptimalMax": 0.12,
+    "Notes": "Urea cycle carrier. Supports polyamine synthesis."
+  },
+  {
+    "MetaboliteId": "glutamate",
+    "Name": "Glutamate",
+    "Unit": "mM",
+    "NormalMin": 0.2,
+    "NormalMax": 0.8,
+    "OptimalMin": 0.3,
+    "OptimalMax": 0.6,
+    "Notes": "Main excitatory neurotransmitter. Nitrogen carrier."
+  },
+  {
+    "MetaboliteId": "aspartate",
+    "Name": "Aspartate",
+    "Unit": "mM",
+    "NormalMin": 0.1,
+    "NormalMax": 0.4,
+    "OptimalMin": 0.15,
+    "OptimalMax": 0.3,
+    "Notes": "Urea cycle input. Neurotransmitter."
+  },
+  {
+    "MetaboliteId": "cys",
+    "Name": "Cysteine",
+    "Unit": "mM",
+    "NormalMin": 0.1,
+    "NormalMax": 0.3,
+    "OptimalMin": 0.15,
+    "OptimalMax": 0.25,
+    "Notes": "Rate-limiting for glutathione synthesis."
+  },
+  {
+    "MetaboliteId": "nmn",
+    "Name": "NMN",
+    "Unit": "mM",
+    "NormalMin": 0.02,
+    "NormalMax": 0.1,
+    "OptimalMin": 0.04,
+    "OptimalMax": 0.08,
+    "Notes": "NAD+ precursor. Target for longevity interventions."
+  },
+  {
+    "MetaboliteId": "nam",
+    "Name": "Nicotinamide",
+    "Unit": "mM",
+    "NormalMin": 0.2,
+    "NormalMax": 0.8,
+    "OptimalMin": 0.3,
+    "OptimalMax": 0.6,
+    "Notes": "Vitamin B3 form. Recycled to NAD+."
+  },
+  {
+    "MetaboliteId": "amp",
+    "Name": "AMP",
+    "Unit": "mM",
+    "NormalMin": 0.01,
+    "NormalMax": 0.1,
+    "OptimalMin": 0.03,
+    "OptimalMax": 0.06,
+    "Notes": "Energy sensor. Activates AMPK when elevated."
+  },
+  {
+    "MetaboliteId": "ampk_active",
+    "Name": "AMPK (Active)",
+    "Unit": "mM",
+    "NormalMin": 0.05,
+    "NormalMax": 0.3,
+    "OptimalMin": 0.1,
+    "OptimalMax": 0.2,
+    "Notes": "Energy sensor. Higher = more repair/autophagy."
+  },
+  {
+    "MetaboliteId": "mtor_active",
+    "Name": "mTOR (Active)",
+    "Unit": "mM",
+    "NormalMin": 0.2,
+    "NormalMax": 0.8,
+    "OptimalMin": 0.3,
+    "OptimalMax": 0.5,
+    "Notes": "Growth signal. Lower may improve longevity."
+  },
+  {
+    "MetaboliteId": "nfkb_active",
+    "Name": "NF-kB (Active)",
+    "Unit": "mM",
+    "NormalMin": 0.05,
+    "NormalMax": 0.3,
+    "OptimalMin": 0.05,
+    "OptimalMax": 0.15,
+    "Notes": "Inflammation marker. Lower is better."
+  },
+  {
+    "MetaboliteId": "carnitine",
+    "Name": "Carnitine",
+    "Unit": "mM",
+    "NormalMin": 0.3,
+    "NormalMax": 0.8,
+    "OptimalMin": 0.4,
+    "OptimalMax": 0.6,
+    "Notes": "Required for fat transport into mitochondria."
+  },
+  {
+    "MetaboliteId": "coa",
+    "Name": "Coenzyme A",
+    "Unit": "mM",
+    "NormalMin": 0.2,
+    "NormalMax": 0.8,
+    "OptimalMin": 0.4,
+    "OptimalMax": 0.6,
+    "Notes": "Acyl group carrier. Essential for metabolism."
+  },
+  {
+    "MetaboliteId": "fad",
+    "Name": "FAD",
+    "Unit": "mM",
+    "NormalMin": 0.1,
+    "NormalMax": 0.5,
+    "OptimalMin": 0.2,
+    "OptimalMax": 0.4,
+    "Notes": "Riboflavin coenzyme. Electron carrier."
+  },
+  {
+    "MetaboliteId": "fadh2",
+    "Name": "FADH2",
+    "Unit": "mM",
+    "NormalMin": 0.02,
+    "NormalMax": 0.1,
+    "OptimalMin": 0.04,
+    "OptimalMax": 0.08,
+    "Notes": "Reduced FAD. Feeds Complex II for ATP."
+  }
+]
