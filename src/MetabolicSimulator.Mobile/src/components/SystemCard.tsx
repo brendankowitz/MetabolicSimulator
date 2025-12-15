@@ -11,10 +11,10 @@ import {
 interface SystemCardProps {
   systemId: string;
   systemName: string;
-  healthScore: number; // 0-100
+  healthScore: number;
   keyMetrics: { name: string; value: number; status: 'good' | 'warning' | 'bad' }[];
   onClick: () => void;
-  scoreDelta?: number; // Change since last update - positive = improving, negative = declining
+  scoreDelta?: number;
 }
 
 const SystemCard: React.FC<SystemCardProps> = ({ systemId, systemName, healthScore, keyMetrics, onClick, scoreDelta = 0 }) => {
@@ -47,43 +47,52 @@ const SystemCard: React.FC<SystemCardProps> = ({ systemId, systemName, healthSco
   const healthColor = getHealthColor();
   const healthLabel = getHealthLabel();
 
+  const getPulseStyle = () => {
+    if (scoreDelta > 2) {
+      return {
+        boxShadow: '0 4px 20px rgba(46, 204, 113, 0.5)',
+        border: '2px solid #2ecc71'
+      };
+    } else if (scoreDelta < -2) {
+      return {
+        boxShadow: '0 4px 20px rgba(231, 76, 60, 0.5)',
+        border: '2px solid #e74c3c'
+      };
+    }
+    return {
+      boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+      border: '2px solid ' + healthColor + '20'
+    };
+  };
+
+  const pulseStyle = getPulseStyle();
+
   return (
     <IonCard
       onClick={onClick}
       style={{
         margin: '8px',
         borderRadius: '16px',
-        boxShadow: scoreDelta > 2 
-          ? '0 4px 20px rgba(46, 204, 113, 0.4)'  // Green glow when improving
-          : scoreDelta < -2 
-            ? '0 4px 20px rgba(231, 76, 60, 0.4)'  // Red glow when declining
-            : '0 4px 12px rgba(0,0,0,0.1)',
         cursor: 'pointer',
-        transition: 'transform 0.2s, box-shadow 0.3s',
-        border: scoreDelta > 2 
-          ? '2px solid #2ecc71'   // Green border when improving
-          : scoreDelta < -2 
-            ? '2px solid #e74c3c'  // Red border when declining
-            : `2px solid ${healthColor}20`,
-        animation: Math.abs(scoreDelta) > 2 ? 'pulse 1s ease-in-out' : 'none'
+        transition: 'transform 0.2s, box-shadow 0.3s, border 0.3s',
+        ...pulseStyle
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = 'translateY(-4px)';
-        e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.15)';
+        e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.2)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = 'translateY(0)';
-        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+        e.currentTarget.style.boxShadow = pulseStyle.boxShadow;
       }}
     >
       <IonCardContent style={{padding: '16px'}}>
-        {/* Header with Icon and Status */}
         <div style={{display: 'flex', alignItems: 'center', marginBottom: '12px'}}>
           <div style={{
             width: '48px',
             height: '48px',
             borderRadius: '12px',
-            background: `linear-gradient(135deg, ${healthColor}22, ${healthColor}44)`,
+            background: 'linear-gradient(135deg, ' + healthColor + '22, ' + healthColor + '44)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -117,8 +126,23 @@ const SystemCard: React.FC<SystemCardProps> = ({ systemId, systemName, healthSco
           </div>
         </div>
 
-        {/* Key Metrics */}
-        <div style={{marginTop: '12px'}}>
+        <div style={{
+          height: '6px',
+          background: '#e0e0e0',
+          borderRadius: '3px',
+          marginBottom: '12px',
+          overflow: 'hidden'
+        }}>
+          <div style={{
+            width: healthScore + '%',
+            height: '100%',
+            background: 'linear-gradient(90deg, ' + healthColor + '88, ' + healthColor + ')',
+            borderRadius: '3px',
+            transition: 'width 0.3s ease'
+          }} />
+        </div>
+
+        <div style={{marginTop: '8px'}}>
           {keyMetrics.map((metric, idx) => {
             const statusColor = metric.status === 'good' ? '#2ecc71' :
                                metric.status === 'warning' ? '#f39c12' : '#e74c3c';
@@ -140,7 +164,8 @@ const SystemCard: React.FC<SystemCardProps> = ({ systemId, systemName, healthSco
                     height: '6px',
                     borderRadius: '50%',
                     background: statusColor,
-                    marginRight: '6px'
+                    marginRight: '6px',
+                    boxShadow: '0 0 4px ' + statusColor
                   }} />
                   <span style={{fontSize: '12px', fontWeight: '600', color: '#333'}}>
                     {metric.value.toFixed(2)}
@@ -151,14 +176,13 @@ const SystemCard: React.FC<SystemCardProps> = ({ systemId, systemName, healthSco
           })}
         </div>
 
-        {/* Tap to expand indicator */}
         <div style={{
           marginTop: '12px',
           fontSize: '10px',
           color: '#95a5a6',
           textAlign: 'center'
         }}>
-          Tap for details →
+          Tap for details
         </div>
       </IonCardContent>
     </IonCard>
@@ -166,3 +190,4 @@ const SystemCard: React.FC<SystemCardProps> = ({ systemId, systemName, healthSco
 };
 
 export default SystemCard;
+

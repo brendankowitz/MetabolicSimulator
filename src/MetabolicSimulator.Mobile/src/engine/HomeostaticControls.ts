@@ -27,7 +27,7 @@ export class HomeostaticControls {
     // Blood glucose MUST stay in 4.0-7.0 range or you die
     const glucoseBlood = conc['glucose_blood'] || 5.0;
     const glucoseMin = 4.5;
-    const glucoseMax = 6.0;
+    // glucoseMax replaced by glucoseStorageThreshold below
     const glucoseTarget = 5.0;
 
     if (glucoseBlood < glucoseMin && newStores.glycogen_liver > 0) {
@@ -51,12 +51,13 @@ export class HomeostaticControls {
     }
 
     // Store excess glucose (insulin-dependent)
-    if (glucoseBlood > glucoseMax) {
+    const glucoseStorageThreshold = 5.3; // Lower threshold
+    if (glucoseBlood > glucoseStorageThreshold && newStores.glycogen_liver < 100) {
       const excess = glucoseBlood - glucoseTarget;
-      const insulinFactor = Math.min(1.0, (conc['insulin'] || 0.5) / 5.0);
-      const stored = excess * 0.5 * insulinFactor; // Store half the excess
+      const insulinFactor = Math.min(1.0, (conc['insulin'] || 0.5) / 3.0);
+      const stored = excess * 0.6 * insulinFactor; // Store half the excess
       conc['glucose_blood'] = glucoseBlood - stored;
-      newStores.glycogen_liver = Math.min(100, newStores.glycogen_liver + stored * 5);
+      newStores.glycogen_liver = Math.min(100, newStores.glycogen_liver + stored * 6);
     }
 
     // 2. ATP HOMEOSTASIS - HARD CLAMP (cells die without ATP)

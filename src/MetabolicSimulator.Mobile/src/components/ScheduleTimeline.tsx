@@ -1,4 +1,6 @@
 import React from 'react';
+import { IonIcon } from '@ionic/react';
+import { restaurant, barbell, moon } from 'ionicons/icons';
 import scheduleData from '../data/schedule.json';
 
 interface ScheduleTimelineProps {
@@ -75,6 +77,15 @@ const ScheduleTimeline: React.FC<ScheduleTimelineProps> = ({ currentTime }) => {
     return `${h12}${ampm}`;
   };
 
+  const getEventIcon = (type: string): string | undefined => {
+    switch(type) {
+      case 'sleep': return moon;
+      case 'meal': return restaurant;
+      case 'exercise': return barbell;
+      default: return undefined;
+    }
+  };
+
   const currentPercent = (currentTime / 1440) * 100;
 
   return (
@@ -109,19 +120,15 @@ const ScheduleTimeline: React.FC<ScheduleTimelineProps> = ({ currentTime }) => {
               }}
               title={`${event.label} (${formatTimeShort(event.startMinutes)}-${formatTimeShort(event.endMinutes)})`}
             >
-              {widthPercent > 4 && (
-                <span style={{
-                  fontSize: '9px',
-                  color: '#fff',
-                  fontWeight: '600',
-                  textShadow: '0 1px 2px rgba(0,0,0,0.3)',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  padding: '0 2px'
-                }}>
-                  {event.type === 'sleep' ? '' : event.label}
-                </span>
+              {widthPercent > 2 && (
+                <IonIcon 
+                  icon={getEventIcon(event.type)} 
+                  style={{
+                    fontSize: widthPercent > 4 ? '14px' : '10px',
+                    color: '#fff',
+                    filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'
+                  }} 
+                />
               )}
             </div>
           );
@@ -150,19 +157,25 @@ const ScheduleTimeline: React.FC<ScheduleTimelineProps> = ({ currentTime }) => {
         fontSize: '9px'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
-          <div style={{ width: '10px', height: '10px', borderRadius: '2px', background: '#5c6bc0' }} />
+          <div style={{ width: '14px', height: '14px', borderRadius: '3px', background: '#5c6bc0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <IonIcon icon={moon} style={{ fontSize: '9px', color: '#fff' }} />
+          </div>
           <span style={{ color: '#666' }}>Sleep</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
-          <div style={{ width: '10px', height: '10px', borderRadius: '2px', background: '#4caf50' }} />
+          <div style={{ width: '14px', height: '14px', borderRadius: '3px', background: '#4caf50', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <IonIcon icon={restaurant} style={{ fontSize: '9px', color: '#fff' }} />
+          </div>
           <span style={{ color: '#666' }}>Meal</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
-          <div style={{ width: '10px', height: '10px', borderRadius: '2px', background: '#ff9800' }} />
+          <div style={{ width: '14px', height: '14px', borderRadius: '3px', background: '#ff9800', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <IonIcon icon={barbell} style={{ fontSize: '9px', color: '#fff' }} />
+          </div>
           <span style={{ color: '#666' }}>Exercise</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
-          <div style={{ width: '3px', height: '10px', background: '#e91e63', boxShadow: '0 0 3px #e91e63' }} />
+          <div style={{ width: '3px', height: '14px', background: '#e91e63', boxShadow: '0 0 3px #e91e63' }} />
           <span style={{ color: '#666' }}>Now</span>
         </div>
       </div>
